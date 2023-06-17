@@ -1,0 +1,15 @@
+#themeToggle {
+    border: 0;
+}
+.sun {
+    fill: black;
+}
+.moon {
+    fill: transparent;
+}
+:global(html.dark) .sun {
+    fill: transparent;
+}
+:global(html.dark) .moon {
+    fill: white;
+}
