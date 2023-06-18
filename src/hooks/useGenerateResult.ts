@@ -1,114 +1,96 @@
 import {ChatMessage, ErrorMessage} from '../../types';
-import {HOST_URL} from '@/utils/hostUrl';
 import {useState} from 'react';
 import {useAtom} from 'jotai';
-import {licenceKeyRef, userUUID} from '@/ui.state';
 import {ChatMessageProcessor} from '@/utils/Chat/ChatMessageProcessor';
-import {useQueryUserInfo} from '@/hooks/useQueryUserInfo';
-import {showEnterLicense, ShowLicenseFromAtom} from '@/hooks/useLayout';
+import {ShowLicenseFromAtom} from '@/hooks/useLayout';
+import {mjImageByPrompt} from '@/apis/image';
+import {ifTaskOnWorkingAtom, setTaskIdAtom} from '@/hooks/useTaskInfo';
 
 
-
-function formatMsgBody(body: ChatMessage[],isFree=true):ChatMessage[]{
-    const instance = new ChatMessageProcessor(body, isFree?'free':'paid',2000,200)
-    return instance.senderMessages
+function formatMsgBody(body: ChatMessage[], isFree = true): ChatMessage[] {
+    const instance = new ChatMessageProcessor(body, isFree ? 'free' : 'paid', 2000, 200);
+    return instance.senderMessages;
 }
+
 export const useGenerateResult = () => {
-    // const navigate = useNavigate();
-    const controllerNewOne = new AbortController() as any;
-    const controller= useRef(controllerNewOne);
-    // const timestamp = Date.now();
     const [currentError, setCurrentError] = useState<ErrorMessage>();
-    const [,showLicenseEdit] = useAtom(ShowLicenseFromAtom)
-    const [generatedResults, setGeneratedResults] = useState<string>('');
-    const isStreamingRef = useRef<boolean>(true)
-    const{ifFree} = useQueryUserInfo()
-    async function generate(body: ChatMessage[]):Promise<string> {
-        // console.log(body);
-        setGeneratedResults('');
-        setCurrentError(undefined)
-        readyStream()
+    const [, showLicenseEdit] = useAtom(ShowLicenseFromAtom);
+    const [generatedResults, setGeneratedResults] = useState<ChatMessage>({
+        role: 'assistant',
+        content: '',
+    });
+    const [, setTaskId] = useAtom(setTaskIdAtom);
+    const [,setWorking] = useAtom(ifTaskOnWorkingAtom)
+    const isStreamingRef = useRef<boolean>(true);
 
-
+    async function generate(body: ChatMessage): Promise<any> {
+        setCurrentError(undefined);
+        let response:any;
         try {
-            const response = await fetch(HOST_URL+'/api/chat', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-License-Key':licenceKeyRef.value ,
-                    'X-UUID': userUUID.value
-                },
-                body: JSON.stringify({
-                    Messages:formatMsgBody(body,ifFree),
-                }),
-                signal: controller.current.signal,
-            });
+            const action = body.action;
+            if (action === 'IMAGINE') {
+                response = await mjImageByPrompt(
+                    body.content,
+                );
+                // response= {
+                //     result:"8306746338615707",
+                //     code:1
+                // }
+                console.log(response)
+                setTaskId(response?.result);
+                setWorking(true)
 
-            if (!response.ok) {
-                if (response.status === 403) {
-                    setTimeout(() => {
-                        showLicenseEdit()
-                    },800)
-                    throw new Error('No available tokens left');
-                }
-                if (response.status === 400) {
-                    throw new Error('Not a valid message');
-                }
+                // setTimeout(() => {
+                //     setWorking(false)
+                // },10000)
 
-                throw new Error('Request OpenAI Failed With Bad Network ');
+            }
+            // if (!response.code) {
+            //     if (response.status === 403) {
+            //         setTimeout(() => {
+            //             showLicenseEdit()
+            //         },800)
+            //         throw new Error('No available tokens left');
+            //     }
+            //     if (response.status === 400) {
+            //         throw new Error('Not a valid message');
+            //     }
+            //
+            //     throw new Error('Request OpenAI Failed With Bad Network ');
+            // }
+
+            const code = response?.code;
+            const result = response?.result;
+            if (code === 1) {
+                console.log('提交成功');
+                return result;
+            }
+            if (code === 0) {
+                throw new Error('task is already exist')
+            }
+            if (code === 1) {
+                throw new Error('wait in list')
             }
 
-            // This data is a ReadableStream
-            const data = response.body;
-            if (!data) {
-                return ''
-            }
-
-            const reader = data.getReader();
-            const decoder = new TextDecoder();
-            let done = false;
-            let result = '';
-            while (!done && isStreamingRef.current) {
-                const { value, done: doneReading } = await reader.read();
-                done = doneReading;
-                const chunkValue = decoder.decode(value);
-                if (chunkValue === '\n' && generatedResults.endsWith('\n'))
-                    continue;
-                setGeneratedResults((prev) => prev + chunkValue);
-                result += chunkValue;
-            }
-            if(done){
-                controller.current.abort();
-            }
-            reader.cancel().then(() => {
-                readyStream()
-            })
-            return result;
+            return {};
 
         } catch (error) {
-            console.error(error);
             const errorResponse = error as ErrorMessage;
-            controller.current.abort();
-            if (errorResponse?.code == 20) {
-                // 用户主动取消付款w
-                setCurrentError( undefined)
-                return '';
-            }
-            setCurrentError(error as any)
-            return '';
+            // if (errorResponse?.code == 20) {
+            //     setCurrentError(undefined);
+            //     return;
+            // }
+            setCurrentError(error as any);
+            return {};
         }
 
 
     }
+
     function stopStream() {
-        controller.current.abort();
         isStreamingRef.current = false;
     }
 
-    function readyStream() {
-        isStreamingRef.current = true;
-        controller.current = new AbortController() as any;
-    }
 
-    return { generatedResults, generate,stopStream, currentError };
+    return { generatedResults, generate, stopStream, currentError };
 };

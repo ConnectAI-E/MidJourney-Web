@@ -7,7 +7,6 @@ type PaymentType = 'free' | 'paid';
 export class ChatMessageProcessor {
     chatMessages: ChatMessage[];
     paymentType: PaymentType;
-
     maxLength: number;
     maxAssistantContentLength: number;
 
@@ -154,7 +153,6 @@ public filterSensitiveWords(chatMessages: ChatMessage[]): ChatMessage[] {
             : msg;
     return chatMessages.map(filterUserMessage);
 }
-
 }
 
 

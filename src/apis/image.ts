@@ -1,4 +1,4 @@
-import {fetchGet, fetchPost} from '@/utils/fetchEnhance';
+import {fetchGet, fetchMJGet, fetchMJPost, fetchPost} from '@/utils/fetchEnhance';
 import {HOST_URL} from '@/utils/hostUrl';
 
 export const getUserInfo = async () => {
@@ -17,4 +17,22 @@ export const validateLicenseKey = async (key: string) => {
     }
     // console.log(response);
     return response.data;
+}
+
+
+export const mjImageByPrompt = async (prompt: string) => {
+    const response = await fetchMJPost( '/mj/submit/imagine', {prompt: prompt});
+    return response;
+}
+
+
+export const mjGetTaskInfo = async (taskId: string) => {
+    const response = await fetchMJGet('/mj/task/' + taskId+'/fetch');
+    return response;
+}
+
+
+export const mjGetQueue = async () => {
+    const response = await fetchMJGet('/mj/queue');
+    return response;
 }

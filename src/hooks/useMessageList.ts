@@ -8,24 +8,26 @@
 
 import {atom} from 'jotai';
 import {ChatMessage} from '../../types';
+import {judgeUserActionType} from '@/utils/Chat/MsgProcess';
 
 const msgListAtom = atom<ChatMessage[]>([
-  {
-    role: "user",
-    content: "/imagine a clever running bot",
-  },
-  {
-    role: "assistant",
-    content: `a clear running bot`,
-    result: {
-      action: "IMAGINE",
-      taskId: "3808808359954139",
-      status: "SUCCESS",
-      imgUrl:
-        "https://cdn.discordapp.com/attachments/1109486781751107616/1119660299058946098/lisarobinson_3808808359954139_a_bot_b3d60e48-7562-4138-8d21-b8b11bfe27e1.png?Authorization=123",
-      finished: true,
+    {
+        role: 'user',
+        content: 'a clever running bot',
+        action: 'IMAGINE',
     },
-  },
+    {
+        role: 'assistant',
+        content: `a clear running bot`,
+        result: {
+            action: 'IMAGINE',
+            taskId: '3808808359954139',
+            status: 'SUCCESS',
+            imgUrl:
+                'https://cdn.discordapp.com/attachments/1109486781751107616/1119660299058946098/lisarobinson_3808808359954139_a_bot_b3d60e48-7562-4138-8d21-b8b11bfe27e1.png?Authorization=123',
+            finished: true,
+        },
+    },
 ]);
 
 const msgSystemContentAtom = atom<string>((get) => {
@@ -51,18 +53,28 @@ const msgLatestAtom = atom((get) => {
     return get(msgListAtom).slice(-1)[0];
 });
 
+const msgLastUserAtom = atom((get) => {
+    // get user msg list
+    const msgList = get(msgListAtom);
+    const userMsgList = msgList.filter((msg) => msg.role === 'user');
+    return userMsgList.length > 0 ? userMsgList.slice(-1)[0] : null;
+})
+
 const ifMsgEmptyAtom = atom((get) => {
     return get(msgListAtom).length === 0;
 });
 
 const addUserMsgAtom = atom(null, (get, set, msg: string) => {
     const newMsgList = get(msgListAtom);
+
     set(msgListAtom, [...newMsgList, {
         role: 'user',
         content: msg,
         time: new Date().getTime(),
+        action: judgeUserActionType(msg),
     }]);
 });
+
 
 const emptyMsgListAtom = atom(null, (get, set) => {
     set(msgListAtom, []);
@@ -81,11 +93,12 @@ const AddSystemMsgAtom = atom(null, (get, set, sysMsg: string) => {
     }]);
 });
 
-const AddAssistantMsgAtom = atom(null, (get, set, assistantMsg: string) => {
+const AddAssistantMsgAtom = atom(null, (get, set, assistantMsg: ChatMessage['result']) => {
     const newMsgList = get(msgListAtom);
     set(msgListAtom, [...newMsgList, {
         role: 'assistant',
-        content: assistantMsg,
+        content: assistantMsg?.prompt??"",
+        result:assistantMsg,
         time: new Date().getTime(),
     }]);
 });
@@ -112,6 +125,7 @@ export const msgAtom = {
     emptyMsgListAtom,
     msgSystemContentAtom,
     msgLatestAtom,
+    msgLastUserAtom,
     ifMsgEmptyAtom,
     addUserMsgAtom,
     AddSystemMsgAtom,

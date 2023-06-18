@@ -28,6 +28,7 @@ export default ({ role, message, result, showRetry, onRetry }: Props) => {
   const [source, setSource] = useState("");
   const [state, copyToClipboard] = useCopyToClipboard();
 
+  const ifDown = result?.finished
   const htmlString = () => {
     const md = MarkdownIt({
       linkify: true,
@@ -85,6 +86,8 @@ export default ({ role, message, result, showRetry, onRetry }: Props) => {
                 />
               </PhotoView>
             </PhotoProvider>
+
+            {ifDown&&
             <div className={"mt-2"}>
               <ActionBtn
                 handleClickVariate={(e) => {
@@ -94,7 +97,8 @@ export default ({ role, message, result, showRetry, onRetry }: Props) => {
                   console.log("u"+e);
                 }}
               />
-            </div>
+            </div>}
+
           </div>
         )}
       </div>
