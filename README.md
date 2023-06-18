@@ -36,9 +36,10 @@ docker run -d --name midjourney-proxy \
  -e mj.discord.user-token=xxx \
  --restart=always \
  novicezk/midjourney-proxy:2.2.3
-`
 ```
 more config info [MidJourney-Api](https://github.com/novicezk/midjourney-proxy/blob/main/docs/discord-params.md)
+
+check swagger document: http://localhost:8080/mj
 
 ### Midjourney-Web
 ```bash
