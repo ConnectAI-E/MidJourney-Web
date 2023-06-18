@@ -14,17 +14,11 @@ export interface ErrorMessage {
 
 export interface MidjourneyResult{
     taskId: string
-    action: ActionCmd
+    action:  'IMAGINE'
     imgUrl:string
-    status: string
+    status:  'SUCCESS'
     finished: boolean
 }
 
-export enum ActionCmd {
-    IMAGINE = 'IMAGINE',
-}
 
 
-export enum Status {
-    SUCCESS = 'SUCCESS',
-}

@@ -10,10 +10,22 @@ import {atom} from 'jotai';
 import {ChatMessage} from '../../types';
 
 const msgListAtom = atom<ChatMessage[]>([
-    {
-        role: 'assistant',
-        content: '你好，我是小助手，有什么可以帮到你的吗？',
+  {
+    role: "user",
+    content: "/imagine a beautiful Thousand Island Lake sunset",
+  },
+  {
+    role: "assistant",
+    content: `a beautiful Thousand Island Lake sunset Draw a beautiful Thousand Island Lake sunset`,
+    result: {
+      action: "IMAGINE",
+      taskId: "3808808359954139",
+      status: "SUCCESS",
+      imgUrl:
+        "https://cdn.discordapp.com/attachments/1109486781751107616/1119660299058946098/lisarobinson_3808808359954139_a_bot_b3d60e48-7562-4138-8d21-b8b11bfe27e1.png?Authorization=123",
+      finished: true,
     },
+  },
 ]);
 
 const msgSystemContentAtom = atom<string>((get) => {

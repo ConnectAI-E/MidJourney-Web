@@ -168,6 +168,7 @@ export default function () {
                         key={ index }
                         role={ message.role }
                         message={ message.content }
+                        result={message.result}
                         showRetry={ () => (message.role === 'assistant' && index === messageList.length - 1) }
                         onRetry={ retryLastFetch }
                     />
