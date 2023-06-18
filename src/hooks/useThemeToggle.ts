@@ -7,7 +7,6 @@ export const useThemeToggle = () => {
     useEffect(() => {
         getItem('theme').then(
             (theme) => {
-                console.log('theme');
                 // console.log("theme",theme);
                 document.documentElement.classList.toggle('dark', theme === 'dark');
                 document.documentElement.classList.add(theme);

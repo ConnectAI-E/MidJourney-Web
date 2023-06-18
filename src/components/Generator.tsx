@@ -47,10 +47,11 @@ export default function () {
     useEffect(() => {
         try {
             getItem('messageList').then((msgLists) => {
-                // console.log('msgLists', msgLists);
+                console.log('msgLists', msgLists);
                 // exclude {}
                 if (msgLists && msgLists !== '{}') {
-                    setMsgList(JSON.parse(msgLists as any));
+                    // todo: recover
+                    // setMsgList(JSON.parse(msgLists as any));
                 }
             });
         } catch (err) {

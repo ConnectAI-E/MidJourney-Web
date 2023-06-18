@@ -18,7 +18,6 @@ const queryClient = new QueryClient();
 function App() {
     const {getItem,setItem} = useLocalStorage()
     useEffect(() => {
-        io?.query(e.UI_INIT, '');
         getItem("license").then((license) => {
             // console.log(license);
             changeLicenceKey(license)

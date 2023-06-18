@@ -6,10 +6,7 @@ export function useLocalStorage() {
         try {
             localStorage.setItem(key, value);
         } catch (error) {
-            io?.queryBack<StorageDto>(e.STORAGE_SET, {
-                key,
-                value,
-            }).then((data) => console.log(data));
+           console.log('error', error);
         }
     };
 
@@ -22,11 +19,7 @@ export function useLocalStorage() {
                     }
                     reject('no value');
                 } catch (error) {
-                    io?.queryBack<StorageDto>(e.STORAGE_GET, { key }).then((data: any) => {
-                        resolve(data);
-                    }).catch((err) => {
-                        reject(err);
-                    });
+                    console.log('error', error);
                 }
             },
         );
