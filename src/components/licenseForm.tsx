@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from 'react';
-import {PURCHASE_URL} from '@/utils/constants';
+import {GITHUB_ORG_URL} from '@/utils/constants';
 import {Toast, ToastType} from '@/components/Toast';
 import {tw} from '@/utils/tw';
 import '@/styles/licenseCheck.css';
@@ -113,7 +113,7 @@ const licenseForm: FunctionComponent<Props> = (props) => {
                 每日赠送的 1000 Tokens不够用？不妨试试
                 <a
                     className="b-buy-link decoration-wavy underline-offset-8"
-                    href={ PURCHASE_URL } target="_blank"
+                    href={ GITHUB_ORG_URL } target="_blank"
                     rel="noopener noreferrer"
                 >
                     插件合伙人计划

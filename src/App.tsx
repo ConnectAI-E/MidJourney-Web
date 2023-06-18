@@ -4,6 +4,8 @@ import {MemoryRouter as Router, Route, Routes} from 'react-router-dom';
 import {ChatPage} from '@/pages/Chat';
 import "virtual:uno.css";
 import "@unocss/reset/tailwind.css";
+import 'react-photo-view/dist/react-photo-view.css';
+
 // import 'highlight.js/styles/github-dark-dimmed.css';
 import 'katex/dist/katex.min.css'
 import {io_ui, io_ui as io} from 'kiss-msg';
@@ -18,7 +20,6 @@ const queryClient = new QueryClient();
 function App() {
     const {getItem,setItem} = useLocalStorage()
     useEffect(() => {
-        io?.query(e.UI_INIT, '');
         getItem("license").then((license) => {
             // console.log(license);
             changeLicenceKey(license)

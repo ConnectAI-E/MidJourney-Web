@@ -46,37 +46,37 @@ export function Footer() {
     }, [data, ifFree]);
 
     return (
-        <footer ref={inViewRef} >
-            <p className="mt-2 text-xs op-60">
-                <span className="">{ ifFree ? 'Free Plan' : 'Paid Plan' }</span>
-                <span className="px-1"> | </span>
-                <span className="">Left: </span>
-                { isSuccess && <>
-                    <a
-                        className="b-slate-link"
-                        onClick={ () => setEditing(!editing) }
-                        rel="noopener noreferrer"
-                    >
-                        { tokensText }
-                    </a>
-                </> }
-                {
-                    !isSuccess && <a className="b-slate-link " href="#"
-                                     onClick={ () => setEditing(!editing) }>Loading...</a>
-                }
-                <span className="px-1"> | </span>
-                <a
-                    className="b-slate-link"
+        <footer ref={inViewRef} className={`mb-[40px]`} >
+            <p className="mt-2 text-xs op-60 ">
+                <span className="">{ ifFree ? 'Free Plan' : 'Free Plan' }</span>
+            {/*    <span className="px-1"> | </span>*/}
+            {/*    <span className="">Left: </span>*/}
+            {/*    { isSuccess && <>*/}
+            {/*        <a*/}
+            {/*            className="b-slate-link"*/}
+            {/*            onClick={ () => setEditing(!editing) }*/}
+            {/*            rel="noopener noreferrer"*/}
+            {/*        >*/}
+            {/*            { tokensText }*/}
+            {/*        </a>*/}
+            {/*    </> }*/}
+            {/*    {*/}
+            {/*        !isSuccess && <a className="b-slate-link " href="#"*/}
+            {/*                         onClick={ () => setEditing(!editing) }>Loading...</a>*/}
+            {/*    }*/}
+            {/*    <span className="px-1"> | </span>*/}
+            {/*    <a*/}
+            {/*        className="b-slate-link"*/}
 
-                    onClick={ () => setEditing(!editing) }
-                    rel="noopener noreferrer"
-                >
-                    Check License
-                </a>
+            {/*        onClick={ () => setEditing(!editing) }*/}
+            {/*        rel="noopener noreferrer"*/}
+            {/*    >*/}
+            {/*        Check License*/}
+            {/*    </a>*/}
             </p>
-            {
-                editing && <LicenseForm/>
-            }
+            {/*{*/}
+            {/*    editing && <LicenseForm/>*/}
+            {/*}*/}
 
 
         </footer>

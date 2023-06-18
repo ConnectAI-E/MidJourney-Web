@@ -47,10 +47,11 @@ export default function () {
     useEffect(() => {
         try {
             getItem('messageList').then((msgLists) => {
-                // console.log('msgLists', msgLists);
+                console.log('msgLists', msgLists);
                 // exclude {}
                 if (msgLists && msgLists !== '{}') {
-                    setMsgList(JSON.parse(msgLists as any));
+                    // todo: recover
+                    // setMsgList(JSON.parse(msgLists as any));
                 }
             });
         } catch (err) {
@@ -160,13 +161,14 @@ export default function () {
 
     return (
         <>
-            <div className="mt-6 mb-2">
+            <div className="mt-6 mb-1">
                 <SystemSetting/>
                 { messageList.map((message, index) => (
                     <SingleMsg
                         key={ index }
                         role={ message.role }
                         message={ message.content }
+                        result={message.result}
                         showRetry={ () => (message.role === 'assistant' && index === messageList.length - 1) }
                         onRetry={ retryLastFetch }
                     />
