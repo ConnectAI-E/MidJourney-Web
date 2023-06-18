@@ -8,6 +8,7 @@ import IconRefresh from "./icons/Refresh";
 import type { ChatMessage } from "../../types";
 import "@/styles/message.scss";
 import { PhotoProvider, PhotoView } from "react-photo-view";
+import ActionBtn from '@/components/ActionBtn';
 
 interface Props {
   role: ChatMessage["role"];
@@ -80,10 +81,14 @@ export default ({ role, message, result, showRetry, onRetry }: Props) => {
                   src={result?.imgUrl}
                   alt=""
                   width={"300px"}
-                  className={`mt-2`}
+                  className={`mt-2 rounded-md`}
                 />
               </PhotoView>
             </PhotoProvider>
+            <div className={'mt-2'}>
+              <ActionBtn />
+
+            </div>
           </div>
         )}
       </div>

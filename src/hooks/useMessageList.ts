@@ -12,11 +12,11 @@ import {ChatMessage} from '../../types';
 const msgListAtom = atom<ChatMessage[]>([
   {
     role: "user",
-    content: "/imagine a beautiful Thousand Island Lake sunset",
+    content: "/imagine a clever running bot",
   },
   {
     role: "assistant",
-    content: `a beautiful Thousand Island Lake sunset Draw a beautiful Thousand Island Lake sunset`,
+    content: `a clear running bot`,
     result: {
       action: "IMAGINE",
       taskId: "3808808359954139",
