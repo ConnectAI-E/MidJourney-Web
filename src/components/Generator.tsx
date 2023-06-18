@@ -161,7 +161,7 @@ export default function () {
 
     return (
         <>
-            <div className="mt-6 mb-2">
+            <div className="mt-6 mb-1">
                 <SystemSetting/>
                 { messageList.map((message, index) => (
                     <SingleMsg

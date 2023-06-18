@@ -85,9 +85,15 @@ export default ({ role, message, result, showRetry, onRetry }: Props) => {
                 />
               </PhotoView>
             </PhotoProvider>
-            <div className={'mt-2'}>
-              <ActionBtn />
-
+            <div className={"mt-2"}>
+              <ActionBtn
+                handleClickVariate={(e) => {
+                  console.log("v"+e);
+                }}
+                HandleClickUpscale={(e) => {
+                  console.log("u"+e);
+                }}
+              />
             </div>
           </div>
         )}
