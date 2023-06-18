@@ -25,3 +25,28 @@
 </div>
 
 
+## Quick Start
+
+### Midjourney-Api
+```bash
+docker run -d --name midjourney-proxy \
+ -p 8080:8080 \
+ -e mj.discord.guild-id=xxx \
+ -e mj.discord.channel-id=xxx \
+ -e mj.discord.user-token=xxx \
+ --restart=always \
+ novicezk/midjourney-proxy:2.2.3
+`
+```
+more config info [MidJourney-Api](https://github.com/novicezk/midjourney-proxy/blob/main/docs/discord-params.md)
+
+### Midjourney-Web
+```bash
+mv .env.example .env
+pnpm install
+pnpm run dev
+```
+
+
+
+
