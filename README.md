@@ -20,7 +20,7 @@
 
 <div align="center">
 	<a href='https://www.connectai-e.com' target="_blank" rel="noopener noreferrer">
-	<img src="https://github.com/ConnectAI-E/MidJourney-Web/assets/50035229/40fa93cb-a062-4d74-85dc-6b5022249dfa" width="800" >
+	<img width="800" alt="image" src="https://github-production-user-asset-6210df.s3.amazonaws.com/50035229/246644404-d8b30cab-ebae-42dd-8306-4e9904a18b65.png">
 	</a>
 </div>
 
