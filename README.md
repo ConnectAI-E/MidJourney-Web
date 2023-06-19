@@ -50,8 +50,12 @@ pnpm install
 pnpm run dev
 ```
 
-## technology stack
-[react](https://react.dev/)+[vite](https://vitejs.dev/)+[unocss](https://github.com/unocss/unocss)
+## Technology Stack
+- [react](https://react.dev/)
+- [vite](https://vitejs.dev/)
+- [unocss](https://github.com/unocss/unocss)
+- [jotai](https://jotai.org/)
+- [react query](https://tanstack.com/query/v3/)
 
 
 
