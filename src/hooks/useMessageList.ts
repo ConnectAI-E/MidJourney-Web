@@ -11,23 +11,23 @@ import {ChatMessage} from '../../types';
 import {judgeUserActionType} from '@/utils/Chat/MsgProcess';
 
 const msgListAtom = atom<ChatMessage[]>([
-    {
-        role: 'user',
-        content: 'a clever running bot',
-        action: 'IMAGINE',
-    },
-    {
-        role: 'assistant',
-        content: `a clear running bot`,
-        result: {
-            action: 'IMAGINE',
-            taskId: '6238457747811804',
-            status: 'SUCCESS',
-            imgUrl:
-                'https://cdn.discordapp.com/attachments/1109486781751107616/1119660299058946098/lisarobinson_3808808359954139_a_bot_b3d60e48-7562-4138-8d21-b8b11bfe27e1.png?Authorization=123',
-            finished: true,
-        },
-    },
+    // {
+    //     role: 'user',
+    //     content: 'a clever running bot',
+    //     action: 'IMAGINE',
+    // },
+    // {
+    //     role: 'assistant',
+    //     content: `a clear running bot`,
+    //     result: {
+    //         action: 'IMAGINE',
+    //         taskId: '6238457747811804',
+    //         status: 'SUCCESS',
+    //         imgUrl:
+    //             'https://cdn.discordapp.com/attachments/1109486781751107616/1119660299058946098/lisarobinson_3808808359954139_a_bot_b3d60e48-7562-4138-8d21-b8b11bfe27e1.png?Authorization=123',
+    //         finished: true,
+    //     },
+    // },
 ]);
 
 const msgSystemContentAtom = atom<string>((get) => {
@@ -66,7 +66,6 @@ const ifMsgEmptyAtom = atom((get) => {
 
 const addUserMsgAtom = atom(null, (get, set, msg: string) => {
     const newMsgList = get(msgListAtom);
-
     set(msgListAtom, [...newMsgList, {
         role: 'user',
         content: msg,
@@ -95,6 +94,11 @@ const AddSystemMsgAtom = atom(null, (get, set, sysMsg: string) => {
 
 const AddAssistantMsgAtom = atom(null, (get, set, assistantMsg: ChatMessage['result']) => {
     const newMsgList = get(msgListAtom);
+    // if in the same taskId in msgList, then not add
+    if (newMsgList.filter((msg) => msg.result?.taskId === assistantMsg?.taskId).length > 0) {
+        return;
+    }
+
     set(msgListAtom, [...newMsgList, {
         role: 'assistant',
         content: assistantMsg?.prompt??"",

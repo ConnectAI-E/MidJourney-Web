@@ -33,8 +33,31 @@ export default function () {
     const [taskInfo] = useAtom(taskInfoAtom);
     const [userPlan] = useAtom(userPlanAtom);
     const [taskId] = useAtom(getTaskIdAtom);
-    const { refetch: refetchTaskInfo } = useQueryTaskInfo();
+    const { refetch: refetchTaskInfo,data } = useQueryTaskInfo();
 
+    const[taskNow,setTaskNow] = useAtom(taskInfoAtom)
+    const[,addAssistantMsg] = useAtom(msgAtom.AddAssistantMsgAtom)
+    const [ifOnTask,setEndTask] = useAtom(ifTaskOnWorkingAtom)
+
+    useEffect(() => {
+        let taskNowInfo ;
+        if(!data){return}
+        taskNowInfo= {
+            taskId: data?.id,
+            prompt: data?.prompt,
+            promptEn: data?.promptEn,
+            progress: data?.progress,
+            action: data?.action,
+            imgUrl: data?.imageUrl,
+            status: data?.status,
+            finished: data?.progress === "100%",
+        }
+        setTaskNow(taskNowInfo)
+        if(data?.progress === "100%"){
+            taskNow&&addAssistantMsg(taskNowInfo)
+            setEndTask(false)
+        }
+    },[data])
 
     const isAllowCache = useRef(false);
     const {
@@ -42,7 +65,6 @@ export default function () {
         generatedResults, generate, stopStream,
     } = useGenerateResult();
 
-    const [taskNow] = useAtom(taskInfoAtom);
     const [loading, setLoading] = useAtom(ifTaskOnWorkingAtom);
     //test
     useEffect(() => {
