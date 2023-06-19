@@ -24,6 +24,8 @@
 	</a>
 </div>
 
+## Feature List
+- support `/imagine` 
 
 ## Quick Start
 
