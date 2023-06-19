@@ -8,7 +8,7 @@
 
 import {atom} from 'jotai';
 import {ChatMessage} from '../../types';
-import {judgeUserActionType} from '@/utils/Chat/MsgProcess';
+import {judgeUserActionByInput} from '@/utils/Chat/MsgProcess';
 
 const msgListAtom = atom<ChatMessage[]>([
     // {
@@ -70,9 +70,14 @@ const addUserMsgAtom = atom(null, (get, set, msg: string) => {
         role: 'user',
         content: msg,
         time: new Date().getTime(),
-        action: judgeUserActionType(msg),
+        action: judgeUserActionByInput(msg),
     }]);
 });
+
+const addUserAtom = atom(null, (get, set, userMsg:ChatMessage) => {
+    const newMsgList = get(msgListAtom);
+    set(msgListAtom, [...newMsgList,userMsg]);
+})
 
 
 const emptyMsgListAtom = atom(null, (get, set) => {
@@ -132,6 +137,7 @@ export const msgAtom = {
     msgLastUserAtom,
     ifMsgEmptyAtom,
     addUserMsgAtom,
+    addUserAtom,
     AddSystemMsgAtom,
     AddAssistantMsgAtom,
     ifAllowEditSystemMsgAtom,

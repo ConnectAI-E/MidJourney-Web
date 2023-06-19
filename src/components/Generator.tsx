@@ -12,7 +12,7 @@ import {useQueryTaskInfo, userPlanAtom} from '@/hooks/useQueryTaskInfo';
 import {ChatMessageProcessor} from '@/utils/Chat/ChatMessageProcessor';
 import {afterTrimStartWith} from '@/utils/string';
 import {ChatMessage} from '../../types';
-import {judgeUserActionType} from '@/utils/Chat/MsgProcess';
+import {judgeUserActionByInput, judgeUserActionByType} from '@/utils/Chat/MsgProcess';
 import {
     getTaskIdAtom,
     ifTaskOnWorkingAtom,
@@ -27,6 +27,7 @@ export default function () {
     const { getItem, setItem } = useLocalStorage();
     const [messageList, setMsgList] = useAtom(msgAtom.msgListAtom);
     const [, addUserMsg] = useAtom(msgAtom.addUserMsgAtom);
+    const [, addUser] = useAtom(msgAtom.addUserAtom);
     const [, emptyAllList] = useAtom(msgAtom.emptyMsgListAtom);
     const [, delLastAssistantMsg] = useAtom(msgAtom.delLastAssistantMsgAtom);
     const [, addAssistantMsgAtom] = useAtom(msgAtom.AddAssistantMsgAtom);
@@ -116,7 +117,7 @@ export default function () {
         const newUserMsg = {
             role: 'user',
             content: inputValue.value,
-            action: judgeUserActionType(inputValue.value),
+            action: judgeUserActionByInput(inputValue.value),
             time: new Date().getTime(),
         } as ChatMessage;
         addUserMsg(inputValue.value);
@@ -154,7 +155,21 @@ export default function () {
         // );
     };
 
-    const clickAction = (info:any) => {
+    const clickAction = async(info:any) => {
+        const newUserMsg = {
+            role: 'user',
+            content: info?.content,
+            action: judgeUserActionByType(info?.type),
+            actionInfo:{
+              taskId:info?.taskId,
+              index:info?.index,
+            },
+            time: new Date().getTime(),
+        } as ChatMessage;
+        addUser(newUserMsg);
+        await requestWithLatestMessage(newUserMsg);
+
+
         console.log(info);
     }
     useEffect(() => {

@@ -94,6 +94,7 @@ export default ({ role, message, result, showRetry, onRetry ,clickAction}: Props
                 handleClickVariate={(e) => {
                   clickAction && clickAction({
                     type: "variate",
+                    content: `🎲 V${e} [${result?.taskId}]`,
                     index: e,
                     taskId: result?.taskId
                   })
@@ -101,6 +102,7 @@ export default ({ role, message, result, showRetry, onRetry ,clickAction}: Props
                 HandleClickUpscale={(e) => {
                   clickAction && clickAction({
                     type: "upscale",
+                    content: `⛳️ U${e} [${result?.taskId}]`,
                     index: e,
                     taskId: result?.taskId
                   })

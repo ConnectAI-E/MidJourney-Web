@@ -32,7 +32,7 @@ export const mjGetTaskInfo = async (taskId: string) => {
 };
 
 export const mjImageUpScale = async (taskId: string, index: number) => {
-    const response = await fetchMJPost('/mj/submit/imagine', {
+    const response = await fetchMJPost('/mj/submit/change', {
         action: 'UPSCALE',
         taskId: taskId,
         index: index,
@@ -41,7 +41,7 @@ export const mjImageUpScale = async (taskId: string, index: number) => {
 };
 
 export const mjImageUpVariate = async (taskId: string, index: number) => {
-    const response = await fetchMJPost('/mj/submit/imagine', {
+    const response = await fetchMJPost('/mj/submit/change', {
         action: 'VARIATION',
         taskId: taskId,
         index: index,
@@ -50,7 +50,7 @@ export const mjImageUpVariate = async (taskId: string, index: number) => {
 };
 
 export const mjImageUpReroll = async (taskId: string) => {
-    const response = await fetchMJPost('/mj/submit/imagine', {
+    const response = await fetchMJPost('/mj/submit/change', {
         action: 'REROLL',
         taskId: taskId,
     });
