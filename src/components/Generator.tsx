@@ -1,4 +1,3 @@
-import {ChatMessage} from '../../types';
 import {useLocalStorage} from '@/hooks/useLocalStorage';
 import SystemSetting from '@/components/SystemSetting';
 import SingleMsg from '@/components/SingleMsg';
@@ -9,32 +8,68 @@ import {useAtom} from 'jotai';
 import {msgAtom} from '@/hooks/useMessageList';
 import {useGenerateResult} from '@/hooks/useGenerateResult';
 import {useThrottleFn} from 'ahooks';
-import {useQueryUserInfo, userPlanAtom} from '@/hooks/useQueryUserInfo';
+import {useQueryTaskInfo, userPlanAtom} from '@/hooks/useQueryTaskInfo';
 import {ChatMessageProcessor} from '@/utils/Chat/ChatMessageProcessor';
+import {afterTrimStartWith} from '@/utils/string';
+import {ChatMessage} from '../../types';
+import {judgeUserActionType} from '@/utils/Chat/MsgProcess';
+import {
+    getTaskIdAtom,
+    ifTaskOnWorkingAtom,
+    setTaskIdAtom,
+    taskInfoAtom,
+} from '@/hooks/useTaskInfo';
 
 
 export default function () {
     let inputRef = useRef<HTMLInputElement>(null);
     const [currentSystemRoleSettings, setCurrentSystemRoleSettings] = useState('');
-    const [loading, setLoading] = useState(false);
-    const { refetch: refetchUserInfo,ifFree } = useQueryUserInfo();
     const { getItem, setItem } = useLocalStorage();
     const [messageList, setMsgList] = useAtom(msgAtom.msgListAtom);
     const [, addUserMsg] = useAtom(msgAtom.addUserMsgAtom);
     const [, emptyAllList] = useAtom(msgAtom.emptyMsgListAtom);
     const [, delLastAssistantMsg] = useAtom(msgAtom.delLastAssistantMsgAtom);
     const [, addAssistantMsgAtom] = useAtom(msgAtom.AddAssistantMsgAtom);
-    const [msgWithLastAssistantAtom] = useAtom(msgAtom.msgWithOutLastAssistantAtom);
+    const [taskInfo] = useAtom(taskInfoAtom);
     const [userPlan] = useAtom(userPlanAtom);
+    const [taskId] = useAtom(getTaskIdAtom);
+    const { refetch: refetchTaskInfo,data } = useQueryTaskInfo();
+
+    const[taskNow,setTaskNow] = useAtom(taskInfoAtom)
+    const[,addAssistantMsg] = useAtom(msgAtom.AddAssistantMsgAtom)
+    const [ifOnTask,setEndTask] = useAtom(ifTaskOnWorkingAtom)
+
+    useEffect(() => {
+        let taskNowInfo ;
+        if(!data){return}
+        taskNowInfo= {
+            taskId: data?.id,
+            prompt: data?.prompt,
+            promptEn: data?.promptEn,
+            progress: data?.progress,
+            action: data?.action,
+            imgUrl: data?.imageUrl,
+            status: data?.status,
+            finished: data?.progress === "100%",
+        }
+        setTaskNow(taskNowInfo)
+        if(data?.progress === "100%"){
+            taskNow&&addAssistantMsg(taskNowInfo)
+            setEndTask(false)
+        }
+    },[data])
+
     const isAllowCache = useRef(false);
     const {
         currentError,
         generatedResults, generate, stopStream,
     } = useGenerateResult();
+
+    const [loading, setLoading] = useAtom(ifTaskOnWorkingAtom);
     //test
     useEffect(() => {
-        if(isAllowCache.current){
-            const  sortedMessages = new ChatMessageProcessor(messageList,userPlan).sortedMessages;
+        if (isAllowCache.current) {
+            const sortedMessages = new ChatMessageProcessor(messageList, userPlan).sortedMessages;
             setItem('messageList', JSON.stringify(sortedMessages));
         }
     }, [messageList]);
@@ -51,7 +86,7 @@ export default function () {
                 // exclude {}
                 if (msgLists && msgLists !== '{}') {
                     // todo: recover
-                    // setMsgList(JSON.parse(msgLists as any));
+                    setMsgList(JSON.parse(msgLists as any));
                 }
             });
         } catch (err) {
@@ -60,52 +95,38 @@ export default function () {
 
         setTimeout(() => {
             isAllowCache.current = true;
-        },1000);
-
+        }, 1000);
 
         // window.addEventListener('beforeunload', handleBeforeUnload);
         // return () => {
         //     window.removeEventListener('beforeunload', handleBeforeUnload);
         // };
 
-
     }, []);
 
-    // const handleBeforeUnload = () => {
-    //     // setItem('messageList', JSON.stringify(messageList));
-    //     setItem('systemRoleSettings', currentSystemRoleSettings);
-    // };
+
     const handleButtonClick = async () => {
         const inputValue = inputRef?.current;
-
         if (!inputValue)
             return;
-
-        //if after trim still empty
         if (!inputValue.value.trim()) {
             return;
         }
+
         const newUserMsg = {
             role: 'user',
             content: inputValue.value,
+            action: judgeUserActionType(inputValue.value),
             time: new Date().getTime(),
-        } as any;
-        const newMessageList = [...messageList, newUserMsg];
-
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        if (window?.umami) umami.trackEvent('chat_generate');
+        } as ChatMessage;
         addUserMsg(inputValue.value);
-
         if (inputRef.current) {
             inputRef.current.value = '';
         }
-
-        await requestWithLatestMessage(newMessageList);
-
+        await requestWithLatestMessage(newUserMsg);
     };
 
-    const archiveCurrentMessage = (result: string) => {
+    const archiveCurrentMessage = (result: ChatMessage) => {
         if (result) {
             addAssistantMsgAtom(result);
             inputRef.current?.focus();
@@ -127,26 +148,30 @@ export default function () {
 
     const retryLastFetch = () => {
         delLastAssistantMsg();
-        requestWithLatestMessage(msgWithLastAssistantAtom).then(
-            () => {
-            },
-        );
+        // requestWithLatestMessage().then(
+        //     () => {
+        //     },
+        // );
     };
     useEffect(() => {
         smoothToBottom.run();
     }, [loading]);
 
+    useEffect(() => {
+        return () => {
+            console.log(taskNow);
+        };
+    }, [taskNow]);
 
-    const requestWithLatestMessage = async (newMessageList: any) => {
+
+    const requestWithLatestMessage = async (newMessage:ChatMessage) => {
         setLoading(true);
-        // console.log(newMessageList);
-        await generate(newMessageList).then(
-            (result) => {
-                archiveCurrentMessage(result);
-            },
-        );
-        refetchUserInfo().then();
-        setLoading(false);
+        console.log(newMessage);
+        await generate(newMessage).then();
+        // refetchUserInfo().then();
+        // setTimeout(() => {
+        //     setLoading(false);
+        // },300);
     };
 
     const handleKeydown = (e: KeyboardEvent) => {
@@ -168,15 +193,18 @@ export default function () {
                         key={ index }
                         role={ message.role }
                         message={ message.content }
-                        result={message.result}
+                        result={ message.result }
                         showRetry={ () => (message.role === 'assistant' && index === messageList.length - 1) }
                         onRetry={ retryLastFetch }
                     />
                 )) }
-                { loading && generatedResults && (
+                { loading && taskNow && (
                     <SingleMsg
                         role="assistant"
-                        message={ generatedResults }
+                        message={ taskNow.prompt??'' }
+                        result={ taskNow }
+                        showRetry={ ()=>true}
+                        onRetry={ retryLastFetch }
                     />
                 ) }
 

@@ -3,10 +3,9 @@ import {GITHUB_ORG_URL} from '@/utils/constants';
 import {Toast, ToastType} from '@/components/Toast';
 import {tw} from '@/utils/tw';
 import '@/styles/licenseCheck.css';
-import {validateLicenseKey} from '@/apis/user';
-import {changeLicenceKey, changeLicenceKeyAndCache, loadLicenseKey} from '@/ui.state';
+import {validateLicenseKey} from '@/apis/image';
+import {changeLicenceKeyAndCache, loadLicenseKey} from '@/ui.state';
 import {useLocalStorage} from '@/hooks/useLocalStorage';
-import {useQueryUserInfo} from '@/hooks/useQueryUserInfo';
 import {checkKeyFormat} from '@/utils/string';
 import {useAtom} from 'jotai';
 import {CloseLicenseFromAtom} from '@/hooks/useLayout';
@@ -27,7 +26,6 @@ interface FormInput {
 const licenseForm: FunctionComponent<Props> = (props) => {
     const licenseKeyInputRef = useRef<HTMLInputElement>(null)
     const {getItem,setItem} = useLocalStorage();
-    const {refetch} = useQueryUserInfo()
     const[,closeLicenseEdit] = useAtom(CloseLicenseFromAtom)
     useEffect(() => {
         getItem("license").then((licenseKey)=> {
@@ -78,7 +76,6 @@ const licenseForm: FunctionComponent<Props> = (props) => {
         if (license === '') {
             changeLicenceKeyAndCache('')
             tip.empty();
-            refetch().then()
             return;
         }
 
@@ -88,7 +85,6 @@ const licenseForm: FunctionComponent<Props> = (props) => {
             if (if_validate) {
                 tip.success();
                 changeLicenceKeyAndCache(license);
-                 refetch().then()
                 // 三秒后自动关闭
                 setTimeout(() => {
                     closeLicenseEdit()

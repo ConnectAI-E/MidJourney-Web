@@ -28,6 +28,7 @@ export default ({ role, message, result, showRetry, onRetry }: Props) => {
   const [source, setSource] = useState("");
   const [state, copyToClipboard] = useCopyToClipboard();
 
+  const ifDown = result?.finished
   const htmlString = () => {
     const md = MarkdownIt({
       linkify: true,
@@ -73,7 +74,7 @@ export default ({ role, message, result, showRetry, onRetry }: Props) => {
         {role === "assistant" && (
           <div className="message prose flex justify-start flex-col items-start break-words overflow-hidden text-[14px]">
             <div className="flex items-center justify-center gap-2 pt-4 font-700">
-              {`[${result?.taskId}]  ${message}`}
+              {`${result?.finished ? "✅" : `⏳ ${result?.progress}`} [${result?.taskId}]  ${message} `}
             </div>
             <PhotoProvider>
               <PhotoView src={result?.imgUrl}>
@@ -85,6 +86,8 @@ export default ({ role, message, result, showRetry, onRetry }: Props) => {
                 />
               </PhotoView>
             </PhotoProvider>
+
+            {ifDown&&
             <div className={"mt-2"}>
               <ActionBtn
                 handleClickVariate={(e) => {
@@ -94,7 +97,8 @@ export default ({ role, message, result, showRetry, onRetry }: Props) => {
                   console.log("u"+e);
                 }}
               />
-            </div>
+            </div>}
+
           </div>
         )}
       </div>
