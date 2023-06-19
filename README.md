@@ -25,7 +25,10 @@
 </div>
 
 ## Feature List
-- support `/imagine` 
+
+- Support `/Imagine`
+- Support `/Upscale`
+- Support `/Variation`
 
 ## Quick Start
 
