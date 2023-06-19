@@ -17,22 +17,49 @@ export const validateLicenseKey = async (key: string) => {
     }
     // console.log(response);
     return response.data;
-}
+};
 
 
 export const mjImageByPrompt = async (prompt: string) => {
-    const response = await fetchMJPost( '/mj/submit/imagine', {prompt: prompt});
+    const response = await fetchMJPost('/mj/submit/imagine', { prompt: prompt });
     return response;
-}
+};
 
 
 export const mjGetTaskInfo = async (taskId: string) => {
-    const response = await fetchMJGet('/mj/task/' + taskId+'/fetch');
+    const response = await fetchMJGet('/mj/task/' + taskId + '/fetch');
     return response;
-}
+};
 
+export const mjImageUpScale = async (taskId: string, index: number) => {
+    const response = await fetchMJPost('/mj/submit/imagine', {
+        action: 'UPSCALE',
+        taskId: taskId,
+        index: index,
+    });
+    return response;
+};
+
+export const mjImageUpVariate = async (taskId: string, index: number) => {
+    const response = await fetchMJPost('/mj/submit/imagine', {
+        action: 'VARIATION',
+        taskId: taskId,
+        index: index,
+    });
+    return response;
+};
+
+export const mjImageUpReroll = async (taskId: string) => {
+    const response = await fetchMJPost('/mj/submit/imagine', {
+        action: 'REROLL',
+        taskId: taskId,
+    });
+    return response;
+};
 
 export const mjGetQueue = async () => {
     const response = await fetchMJGet('/mj/queue');
     return response;
-}
+};
+
+
