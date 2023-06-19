@@ -3,12 +3,17 @@ export interface ChatMessage {
     content: string // 消息内容
     result?: MidjourneyResult // mj result
     action?: ActionType // 用户发起的命令类型
+    actionInfo?: ActionInfo // 用户发起的命令类型
     date?: string
     time?: number
 }
 
-export type ActionType = 'IMAGINE'
+export type ActionType = 'IMAGINE' | 'UPSCALE' | 'VARIATION' | 'REROLL' | 'UNKNOWN'
 
+export type ActionInfo = {
+    taskId: string
+    index: number
+}
 export interface ErrorMessage {
     code?: any
     message: string

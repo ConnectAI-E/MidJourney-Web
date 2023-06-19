@@ -1,22 +1,22 @@
 import {afterTrimStartWithMulti} from '@/utils/string';
 import {describe,test,expect} from 'vitest';
-import {judgeUserActionType} from '@/utils/Chat/MsgProcess';
+import {judgeUserActionByInput} from '@/utils/Chat/MsgProcess';
 
 
 describe('to imagine', () => {
     test('/imagine', () => {
-        const s = judgeUserActionType('/imagine a boy');
+        const s = judgeUserActionByInput('/imagine a boy');
         expect(s).toEqual('IMAGINE');
     });
 
     test('/Imagine', () => {
-        const s = judgeUserActionType('/Imagine a boy');
+        const s = judgeUserActionByInput('/Imagine a boy');
         expect(s).toEqual('IMAGINE');
     });
 
 
     test('defult', () => {
-        const s = judgeUserActionType('/ a boy');
+        const s = judgeUserActionByInput('/ a boy');
         expect(s).toEqual('IMAGINE');
     });
 
