@@ -34,6 +34,7 @@ export function useQueryTaskInfo() {
     }, [ifOnTask]);
 
     useEffect(() => {
+        setTimeout(() => {
         console.log(data,"data");
         data&&setTaskNow({
             taskId: data?.id,
@@ -47,10 +48,9 @@ export function useQueryTaskInfo() {
         })
 
         if(data?.progress === "100%"){
-            setLoading(false)
-            setEndTask(false)
             taskNow&&addAssistantMsg(taskNow)
-        }
+            setEndTask(false)
+        }},1000)
 
     },[data])
 

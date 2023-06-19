@@ -21,7 +21,7 @@ const msgListAtom = atom<ChatMessage[]>([
         content: `a clear running bot`,
         result: {
             action: 'IMAGINE',
-            taskId: '3808808359954139',
+            taskId: '6238457747811804',
             status: 'SUCCESS',
             imgUrl:
                 'https://cdn.discordapp.com/attachments/1109486781751107616/1119660299058946098/lisarobinson_3808808359954139_a_bot_b3d60e48-7562-4138-8d21-b8b11bfe27e1.png?Authorization=123',

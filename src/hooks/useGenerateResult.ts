@@ -88,7 +88,8 @@ export const useGenerateResult = () => {
     }
 
     function stopStream() {
-        isStreamingRef.current = false;
+        // isStreamingRef.current = false;
+        setWorking(false)
     }
 
 
