@@ -153,6 +153,10 @@ export default function () {
         //     },
         // );
     };
+
+    const clickAction = (info:any) => {
+        console.log(info);
+    }
     useEffect(() => {
         smoothToBottom.run();
     }, [loading]);
@@ -196,6 +200,7 @@ export default function () {
                         result={ message.result }
                         showRetry={ () => (message.role === 'assistant' && index === messageList.length - 1) }
                         onRetry={ retryLastFetch }
+                        clickAction={ clickAction}
                     />
                 )) }
                 { loading && taskNow && (

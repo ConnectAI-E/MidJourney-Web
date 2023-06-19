@@ -16,10 +16,11 @@ interface Props {
   result?: ChatMessage["result"];
   showRetry?: () => boolean;
   onRetry?: () => void;
+  clickAction?: (arg:any) => void;
 }
 
 // https://windicss.org/utilities/general/colors.html
-export default ({ role, message, result, showRetry, onRetry }: Props) => {
+export default ({ role, message, result, showRetry, onRetry ,clickAction}: Props) => {
   const roleClass = {
     system: "bg-gradient-to-l from-gray-400 via-gray-300 to-gray-100",
     user: "bg-gradient-to-l from-amber-600  via-amber-400 to-orange-200",
@@ -91,10 +92,18 @@ export default ({ role, message, result, showRetry, onRetry }: Props) => {
             <div className={"mt-2"}>
               <ActionBtn
                 handleClickVariate={(e) => {
-                  console.log("v"+e);
+                  clickAction && clickAction({
+                    type: "variate",
+                    index: e,
+                    taskId: result?.taskId
+                  })
                 }}
                 HandleClickUpscale={(e) => {
-                  console.log("u"+e);
+                  clickAction && clickAction({
+                    type: "upscale",
+                    index: e,
+                    taskId: result?.taskId
+                  })
                 }}
               />
             </div>}
