@@ -57,7 +57,7 @@ pnpm run dev
 - [jotai](https://jotai.org/)
 - [react query](https://tanstack.com/query/v3/)
 
-## High resolution example
+## High Resolution Example
 
 https://github.com/ConnectAI-E/MidJourney-Web/assets/50035229/9a21b470-0919-413e-b020-ecd28837c399
 
