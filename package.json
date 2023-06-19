@@ -14,6 +14,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development vite --mode=development",
     "build": "vite build",
+    "serve": "vite preview",
     "lint": "eslint \"**/*.{js,jsx,ts,tsx,json}\"",
     "format": "eslint \"**/*.{js,jsx,ts,tsx,json}\" --fix",
     "preinstall": "npx only-allow pnpm"
