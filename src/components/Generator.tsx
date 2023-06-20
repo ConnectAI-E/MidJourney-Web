@@ -81,18 +81,16 @@ export default function () {
     }, { wait: 400 });
 
     useEffect(() => {
-        try {
-            getItem('messageList').then((msgLists) => {
+        getItem('messageList')
+            .then((msgLists) => {
                 console.log('msgLists', msgLists);
                 // exclude {}
                 if (msgLists && msgLists !== '{}') {
                     // todo: recover
                     setMsgList(JSON.parse(msgLists as any));
                 }
-            });
-        } catch (err) {
-            console.error(err);
-        }
+            })
+            .catch(err => console.log('getItem err', err))
 
         setTimeout(() => {
             isAllowCache.current = true;
