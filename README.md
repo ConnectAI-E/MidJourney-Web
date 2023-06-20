@@ -87,4 +87,10 @@ https://github.com/ConnectAI-E/MidJourney-Web/assets/50035229/9a21b470-0919-413e
 |            🪄 One-click            |                            ------                            | [🎖Awesome-One-Click-Deployment](https://github.com/ConnectAI-E/Awesome-One-Click-Deployment) |
 
 
+## 沟通部署问题
+
+<img width="220" alt="image" src="https://github.com/ConnectAI-E/MidJourney-Web/assets/50035229/f19d3d79-55c4-451a-9691-d90769c43cb4">
+
+
+
 
