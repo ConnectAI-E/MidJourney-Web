@@ -29,7 +29,7 @@
 - ✅ Support `/Imagine` 
 - ✅ Support `/Upscale 1-4`
 - ✅ Support `/Variation 1-4`
-- 🛠 Support `/ReRoll`
+- ✅ Support `/ReRoll`
 - 🛠 Support `/describe`
 - 🛠 Support `/blend`
 - ✅ Progress percentage
