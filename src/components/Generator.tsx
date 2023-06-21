@@ -98,10 +98,7 @@ export default function () {
             isAllowCache.current = true;
         }, 1000);
 
-        // window.addEventListener('beforeunload', handleBeforeUnload);
-        // return () => {
-        //     window.removeEventListener('beforeunload', handleBeforeUnload);
-        // };
+
 
     }, []);
 
@@ -147,15 +144,26 @@ export default function () {
         archiveCurrentMessage(generatedResults);
     };
 
-    const retryLastFetch = () => {
-        delLastAssistantMsg();
-        // requestWithLatestMessage().then(
-        //     () => {
-        //     },
-        // );
+    const retryGenerateImage = async(info:any) => {
+        // delLastAssistantMsg();
+        if(loading){
+            return
+        }
+        const newUserMsg = {
+            role: 'user',
+            content: info?.content,
+            action: judgeUserActionByType(info?.type),
+            time: new Date().getTime(),
+        } as ChatMessage;
+        addUser(newUserMsg);
+        await requestWithLatestMessage(newUserMsg);
+
     };
 
     const clickAction = async(info:any) => {
+        if(loading){
+            return
+        }
         const newUserMsg = {
             role: 'user',
             content: info?.content,
@@ -168,9 +176,6 @@ export default function () {
         } as ChatMessage;
         addUser(newUserMsg);
         await requestWithLatestMessage(newUserMsg);
-
-
-        console.log(info);
     }
     useEffect(() => {
         smoothToBottom.run();
@@ -187,10 +192,6 @@ export default function () {
         setLoading(true);
         console.log(newMessage);
         await generate(newMessage).then();
-        // refetchUserInfo().then();
-        // setTimeout(() => {
-        //     setLoading(false);
-        // },300);
     };
 
     const handleKeydown = (e: KeyboardEvent) => {
@@ -213,8 +214,8 @@ export default function () {
                         role={ message.role }
                         message={ message.content }
                         result={ message.result }
-                        showRetry={ () => (message.role === 'assistant' && index === messageList.length - 1) }
-                        onRetry={ retryLastFetch }
+                        showRetry={ () => (message.role === 'assistant'&&!loading ) }
+                        onRetry={ retryGenerateImage }
                         clickAction={ clickAction}
                     />
                 )) }
@@ -223,13 +224,13 @@ export default function () {
                         role="assistant"
                         message={ taskNow.prompt??'' }
                         result={ taskNow }
-                        showRetry={ ()=>true}
-                        onRetry={ retryLastFetch }
+                        showRetry={ ()=>false}
+                        // onRetry={ retryLastFetch }
                     />
                 ) }
 
                 { currentError &&
-                    <ErrorMsg data={ currentError } onRetry={ retryLastFetch }/> }
+                    <ErrorMsg data={ currentError } onRetry={ retryGenerateImage }/> }
                 <SendArea ifDisabled={ false }
                           handleStopClick={ stopStreamFetch }
                           handleKeydown={ handleKeydown }

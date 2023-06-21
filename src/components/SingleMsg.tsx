@@ -15,7 +15,7 @@ interface Props {
   message: string;
   result?: ChatMessage["result"];
   showRetry?: () => boolean;
-  onRetry?: () => void;
+  onRetry?: (arg:any) => void;
   clickAction?: (arg:any) => void;
 }
 
@@ -116,7 +116,18 @@ export default ({ role, message, result, showRetry, onRetry ,clickAction}: Props
       {!showRetry ||
         (showRetry() && onRetry && (
           <div className="fie px-3 mb-2">
-            <div onClick={onRetry} className="gpt-retry-btn">
+            <div onClick={ () => {
+              // return onRetry && onRetry({
+              //   type: "reroll",
+              //   content: `🍭 ReRoll [${result?.taskId}]`,
+              //   taskId: result?.taskId
+              // })
+              return onRetry && onRetry({
+                type: "imagine",
+                content: message,
+                taskId: result?.taskId
+              })
+            }} className="gpt-retry-btn">
               <IconRefresh />
               <span className={"text-[12px]"}>Regenerate</span>
             </div>

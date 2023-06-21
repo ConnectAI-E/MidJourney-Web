@@ -17,6 +17,9 @@ export function judgeUserActionByInput(msg: string): ActionType {
 }
 
 export function judgeUserActionByType(type: string): ActionType {
+    if(type==='imagine'){
+        return 'IMAGINE';
+    }
     if(type==='variate'){
         return 'VARIATION';
     }
