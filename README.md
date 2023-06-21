@@ -51,6 +51,26 @@ more config info [MidJourney-Api](https://github.com/novicezk/midjourney-proxy/b
 
 check swagger document: http://localhost:8080/mj
 
+<details>
+    <summary>其他一键部署方式</summary>
+<br>
+<h3>Railway</h3>
+
+Railway是一个提供弹性部署方案的平台，为MidJourney的调用提供了方便的海外服务。
+	
+参考：[midjourney-proxy - Railway 部署教程](https://github.com/novicezk/midjourney-proxy/blob/main/docs/railway-start.md)
+
+<h3>Zeabur</h3>
+
+Zeabur 服务器运行在国外，但是其生成的域名 *.zeabur.app 没有被污染,国内可直接访问
+
+[![Deploy on Zeabur](https://zeabur.com/button.svg)](https://dash.zeabur.com/templates/B04F4M)
+
+
+参考：[midjourney-proxy - Zeabur 部署教程](https://github.com/novicezk/midjourney-proxy/blob/main/docs/zeabur-start.md)
+</details>
+
+
 ### Midjourney-Web
 ```bash
 mv .env.example .env
