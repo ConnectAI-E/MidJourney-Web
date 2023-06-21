@@ -37,7 +37,7 @@
 
 ## Quick Start
 
-### Midjourney-Api
+### 1. Midjourney-Api
 ```bash
 docker run -d --name midjourney-proxy \
  -p 8080:8080 \
@@ -49,9 +49,11 @@ docker run -d --name midjourney-proxy \
 ```
 more config info [MidJourney-Api](https://github.com/novicezk/midjourney-proxy/blob/main/docs/discord-params.md)
 
-check swagger document: http://localhost:8080/mj
+then check midjourney-api swagger document: http://localhost:8080/mj
 
-### Midjourney-Web
+
+
+### 2. Midjourney-Web
 ```bash
 mv .env.example .env
 pnpm install
