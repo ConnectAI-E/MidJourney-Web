@@ -110,6 +110,12 @@ pnpm run dev
 
 https://github.com/ConnectAI-E/MidJourney-Web/assets/50035229/9a21b470-0919-413e-b020-ecd28837c399
 
+<details align='center'>
+    <summary> 📹 点击查看更多功能</summary>
+    <br>
+	<video src="https://github.com/ConnectAI-E/MidJourney-Web/raw/main/assets/50035229/7092a777-d394-445b-9332-3f4d9717c138" controls ></video>
+</details>
+
 ##  ConnectAI-E
 
 | <div style="width:200px">AI</div> |             <img width=120> SDK <img width=120>              |                         Application                          |
