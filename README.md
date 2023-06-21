@@ -39,6 +39,9 @@
 - 🛠 View historical drawing records 查看所有历史绘图记录
 - ✅ Progress percentage 绘图进度展示
 - ✅ Real-time image display 实时更新绘图结果
+- 🛠 Permission management 界面权限管理
+- 🛠 Limit user availability 限制用户可用次数
+  
 
 ## Quick Start
 
