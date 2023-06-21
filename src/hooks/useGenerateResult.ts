@@ -3,7 +3,12 @@ import {useState} from 'react';
 import {useAtom} from 'jotai';
 import {ChatMessageProcessor} from '@/utils/Chat/ChatMessageProcessor';
 import {ShowLicenseFromAtom} from '@/hooks/useLayout';
-import {mjImageByPrompt, mjImageUpScale, mjImageUpVariate} from '@/apis/image';
+import {
+    mjImageByPrompt,
+    mjImageUpReroll,
+    mjImageUpScale,
+    mjImageUpVariate,
+} from '@/apis/image';
 import {ifTaskOnWorkingAtom, setTaskIdAtom} from '@/hooks/useTaskInfo';
 
 
@@ -43,6 +48,11 @@ export const useGenerateResult = () => {
                 response = await mjImageUpScale(
                     body.actionInfo?.taskId ?? '',
                     body.actionInfo?.index ?? 1,
+                );
+            }
+            else if (action === 'REROLL') {
+                response = await mjImageUpReroll(
+                    body.actionInfo?.taskId ?? '',
                 );
             }
             console.log(response);

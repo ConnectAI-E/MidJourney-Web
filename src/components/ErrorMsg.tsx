@@ -4,7 +4,7 @@ import {ErrorMessage} from '../../types';
 
 interface Props {
     data: ErrorMessage
-    onRetry?: () => void
+    onRetry?: (arg:any) => void
 }
 
 export default ({ data, onRetry }: Props) => {
