@@ -28,14 +28,17 @@
 
 ## Feature List
 
-- ✅ Support `/Imagine` 
-- ✅ Support `/Upscale 1-4`
-- ✅ Support `/Variation 1-4`
-- ✅ Support `/ReRoll`
-- 🛠 Support `/describe`
-- 🛠 Support `/blend`
-- ✅ Progress percentage
-- ✅ Real-time image display
+- ✅ Support `/Imagine`  生图操作
+- ✅ Support `/Upscale 1-4` 高清图生成
+- ✅ Support `/Variation 1-4`图片变体
+- ✅ Support `/ReRoll` 重新生图
+- 🛠 Support `/describe` 以图生文
+- 🛠 Support `/blend` 图片融合
+- 🛠 Support Cn Prompt 兼容中文提示词
+- 🛠 Omptise Better Prompt 借助GPT一键优化提示词
+- 🛠 View historical drawing records 查看所有历史绘图记录
+- ✅ Progress percentage 绘图进度展示
+- ✅ Real-time image display 实时更新绘图结果
 
 ## Quick Start
 
