@@ -20,6 +20,18 @@ const SendArea: FunctionComponent<SendAreaProps> = ({
                                                         inputRefItem,
                                                         ifLoading,
                                                     }) => {
+
+    const handlePaste = (event:any) => {
+        const items = (event.clipboardData || event.originalEvent.clipboardData).items;
+        for (const item of items) {
+            if (item.type.indexOf('image') !== -1) {
+                const file = item.getAsFile();
+                // 在这里处理图片文件，比如上传到服务器或进行其他操作
+                console.log(file);
+            }
+        }
+    };
+
     return (
         <div
             className="fixed left-1/2 transform -translate-x-1/2 bottom-40px md:max-w-[90%] md:w-[560px] sm:sm:w-[90%] backdrop-blur-md pt-1 px-4 pb-4 z-100 text-[16px] rounded-md">
@@ -35,6 +47,7 @@ const SendArea: FunctionComponent<SendAreaProps> = ({
                     }
                 >
           <textarea
+              onPaste={handlePaste}
               ref={ inputRefItem }
               placeholder="Enter your description here..."
               autoComplete="off"
