@@ -14,9 +14,11 @@
 
 
 
-<p align='center'>
-  🚧正在施工~进度60%
-</p>
+<div align="center">
+	
+  🚧 正在施工~进度70% | [查看常见部署问题 🤞](https://github.com/ConnectAI-E/MidJourney-Web/wiki/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB)
+	
+</div>
 
 <div align="center">
 	<a href='https://www.connectai-e.com' target="_blank" rel="noopener noreferrer">
@@ -26,14 +28,20 @@
 
 ## Feature List
 
-- ✅ Support `/Imagine` 
-- ✅ Support `/Upscale 1-4`
-- ✅ Support `/Variation 1-4`
-- ✅ Support `/ReRoll`
-- 🛠 Support `/describe`
-- 🛠 Support `/blend`
-- ✅ Progress percentage
-- ✅ Real-time image display
+- ✅ Support `/Imagine`  生图操作
+- ✅ Support `/Upscale 1-4` 高清图生成
+- ✅ Support `/Variation 1-4`图片变体
+- ✅ Support `/ReRoll` 重新生图
+- 🛠 Support `/describe` 以图生文
+- 🛠 Support `/blend` 图片融合
+- 🛠 Support Cn Prompt 兼容中文提示词
+- 🛠 Omptise Better Prompt 借助GPT一键优化提示词
+- 🛠 View historical drawing records 查看所有历史绘图记录
+- ✅ Progress percentage 绘图进度展示
+- ✅ Real-time image display 实时更新绘图结果
+- 🛠 Permission management 界面权限管理
+- 🛠 Limit user availability 限制用户可用次数
+  
 
 ## Quick Start
 
@@ -54,11 +62,42 @@ then check midjourney-api swagger document: http://localhost:8080/mj
 
 
 ### 2. Midjourney-Web
+<details>
+    <summary>其他一键部署方式</summary>
+<br>
+<h3>Railway</h3>
+
+Railway是一个提供弹性部署方案的平台，为MidJourney的调用提供了方便的海外服务。
+	
+参考：[midjourney-proxy - Railway 部署教程](https://github.com/novicezk/midjourney-proxy/blob/main/docs/railway-start.md)
+
+<h3>Zeabur</h3>
+
+Zeabur 服务器运行在国外，但是其生成的域名 *.zeabur.app 没有被污染,国内可直接访问
+
+[![Deploy on Zeabur](https://zeabur.com/button.svg)](https://dash.zeabur.com/templates/B04F4M)
+
+
+参考：[midjourney-proxy - Zeabur 部署教程](https://github.com/novicezk/midjourney-proxy/blob/main/docs/zeabur-start.md)
+</details>
+
+
+### Midjourney-Web
 ```bash
 mv .env.example .env
 pnpm install
 pnpm run dev
 ```
+
+
+<details>
+    <summary>其他一键部署方式</summary>
+<br>
+<h3>Vercel</h3>
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/ConnectAI-E/MidJourney-Web&env=VITE_MIDJOURNEY_PROXY_URL&project-name=midjourney-web&repository-name=Midjourney-Web)
+</details>
+
 
 ## Technology Stack
 - [react](https://react.dev/)
