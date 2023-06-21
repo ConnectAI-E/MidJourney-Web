@@ -19,6 +19,7 @@ import {
     setTaskIdAtom,
     taskInfoAtom,
 } from '@/hooks/useTaskInfo';
+import { PhotoProvider } from 'react-photo-view';
 
 
 export default function () {
@@ -204,40 +205,42 @@ export default function () {
 
     return (
         <>
-            <div className="mt-6 mb-1">
-                <SystemSetting/>
-                { messageList.map((message, index) => (
-                    <SingleMsg
-                        key={ index }
-                        role={ message.role }
-                        message={ message.content }
-                        result={ message.result }
-                        showRetry={ () => (message.role === 'assistant'&&!loading) }
-                        onRetry={ retryGenerateImage }
-                        clickAction={ clickAction}
-                    />
-                )) }
-                { loading && taskNow && (
-                    <SingleMsg
-                        role="assistant"
-                        message={ taskNow.prompt??'' }
-                        result={ taskNow }
-                        showRetry={ ()=>false}
-                        // onRetry={ retryLastFetch }
-                    />
-                ) }
 
-                { currentError &&
-                    <ErrorMsg data={ currentError } onRetry={ retryGenerateImage }/> }
-                <SendArea ifDisabled={ false }
-                          handleStopClick={ stopStreamFetch }
-                          handleKeydown={ handleKeydown }
-                          handleButtonClick={ handleButtonClick }
-                          clear={ clear }
-                          inputRefItem={ inputRef }
-                          ifLoading={ loading }/>
-            </div>
+            <PhotoProvider>
+                <div className="mt-6 mb-1">
+                    <SystemSetting/>
+                    { messageList.map((message, index) => (
+                        <SingleMsg
+                            key={ index }
+                            role={ message.role }
+                            message={ message.content }
+                            result={ message.result }
+                            showRetry={ () => (message.role === 'assistant'&&!loading) }
+                            onRetry={ retryGenerateImage }
+                            clickAction={ clickAction}
+                        />
+                    )) }
+                    { loading && taskNow && (
+                        <SingleMsg
+                            role="assistant"
+                            message={ taskNow.prompt??'' }
+                            result={ taskNow }
+                            showRetry={ ()=>false}
+                            // onRetry={ retryLastFetch }
+                        />
+                    ) }
 
+                    { currentError &&
+                        <ErrorMsg data={ currentError } onRetry={ retryGenerateImage }/> }
+                    <SendArea ifDisabled={ false }
+                              handleStopClick={ stopStreamFetch }
+                              handleKeydown={ handleKeydown }
+                              handleButtonClick={ handleButtonClick }
+                              clear={ clear }
+                              inputRefItem={ inputRef }
+                              ifLoading={ loading }/>
+                </div>
+            </PhotoProvider>
         </>
 
     );

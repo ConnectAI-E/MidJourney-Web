@@ -83,7 +83,6 @@ export default ({ role, message, result, showRetry, onRetry ,clickAction}: Props
             <div className="flex items-center justify-center gap-2 pt-4 font-700">
               {`${result?.finished ? "✅" : `⏳ ${result?.progress}`} [${result?.taskId}]  ${message} `}
             </div>
-            <PhotoProvider>
               <PhotoView src={result?.imgUrl}>
                 <img
                   src={result?.imgUrl}
@@ -92,7 +91,6 @@ export default ({ role, message, result, showRetry, onRetry ,clickAction}: Props
                   className={`mt-2 rounded-md`}
                 />
               </PhotoView>
-            </PhotoProvider>
 
             {result?.finished && result.action != 'UPSCALE'&&
             <div className={"mt-2"}>
