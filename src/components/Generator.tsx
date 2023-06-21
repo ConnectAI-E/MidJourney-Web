@@ -83,7 +83,7 @@ export default function () {
     useEffect(() => {
         getItem('messageList')
             .then((msgLists) => {
-                console.log('msgLists', msgLists);
+                // console.log('msgLists', msgLists);
                 // exclude {}
                 if (msgLists && msgLists !== '{}') {
                     // todo: recover
@@ -212,7 +212,7 @@ export default function () {
                         role={ message.role }
                         message={ message.content }
                         result={ message.result }
-                        showRetry={ () => (message.role === 'assistant'&&!loading ) }
+                        showRetry={ () => (message.role === 'assistant'&&!loading) }
                         onRetry={ retryGenerateImage }
                         clickAction={ clickAction}
                     />
