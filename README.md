@@ -59,9 +59,6 @@ more config info [MidJourney-Api](https://github.com/novicezk/midjourney-proxy/b
 
 then check midjourney-api swagger document: http://localhost:8080/mj
 
-
-
-### 2. Midjourney-Web
 <details>
     <summary>其他一键部署方式</summary>
 <br>
@@ -82,7 +79,7 @@ Zeabur 服务器运行在国外，但是其生成的域名 *.zeabur.app 没有�
 </details>
 
 
-### Midjourney-Web
+### 2. Midjourney-Web
 ```bash
 mv .env.example .env
 pnpm install
