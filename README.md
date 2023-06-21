@@ -35,9 +35,10 @@
 - 🛠 Support `/describe` 以图生文
 - 🛠 Support `/blend` 图片融合
 - 🛠 Support Cn Prompt 兼容中文提示词
-- 🛠 Omptise Better Prompt 借助GPT一键优化提示词
+- 🛠 Better Better Prompt 借助GPT一键优化提示词
 - 🛠 View historical drawing records 查看所有历史绘图记录
 - ✅ Progress percentage 绘图进度展示
+- ✅ Awesome Image Preview 无比丝滑的图片预览
 - ✅ Real-time image display 实时更新绘图结果
 - 🛠 Permission management 界面权限管理
 - 🛠 Limit user availability 限制用户可用次数
@@ -109,6 +110,8 @@ pnpm run dev
 ## High Resolution Example
 
 https://github.com/ConnectAI-E/MidJourney-Web/assets/50035229/9a21b470-0919-413e-b020-ecd28837c399
+
+
 
 ##  ConnectAI-E
 
