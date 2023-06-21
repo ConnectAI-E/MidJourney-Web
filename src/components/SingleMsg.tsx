@@ -9,6 +9,7 @@ import type { ChatMessage } from "../../types";
 import "@/styles/message.scss";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import ActionBtn from '@/components/ActionBtn';
+import {computed} from '@vue/reactivity';
 
 interface Props {
   role: ChatMessage["role"];
@@ -30,6 +31,11 @@ export default ({ role, message, result, showRetry, onRetry ,clickAction}: Props
   const [state, copyToClipboard] = useCopyToClipboard();
 
   const ifDown = result?.finished
+
+  const ifCanBeVariate = computed(() => {
+    console.log("22",result?.action);
+    return result?.finished && result.action != 'UPSCALE'
+  })
   const htmlString = () => {
     const md = MarkdownIt({
       linkify: true,
@@ -77,7 +83,6 @@ export default ({ role, message, result, showRetry, onRetry ,clickAction}: Props
             <div className="flex items-center justify-center gap-2 pt-4 font-700">
               {`${result?.finished ? "✅" : `⏳ ${result?.progress}`} [${result?.taskId}]  ${message} `}
             </div>
-            <PhotoProvider>
               <PhotoView src={result?.imgUrl}>
                 <img
                   src={result?.imgUrl}
@@ -86,9 +91,8 @@ export default ({ role, message, result, showRetry, onRetry ,clickAction}: Props
                   className={`mt-2 rounded-md`}
                 />
               </PhotoView>
-            </PhotoProvider>
 
-            {ifDown&&
+            {result?.finished && result.action != 'UPSCALE'&&
             <div className={"mt-2"}>
               <ActionBtn
                 handleClickVariate={(e) => {
@@ -114,7 +118,7 @@ export default ({ role, message, result, showRetry, onRetry ,clickAction}: Props
         )}
       </div>
       {!showRetry ||
-        (showRetry() && onRetry && (
+        (showRetry() && onRetry && result?.action != 'UPSCALE'&& (
           <div className="fie px-3 mb-2">
             <div onClick={ () => {
               // return onRetry && onRetry({
