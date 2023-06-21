@@ -113,6 +113,7 @@ https://github.com/ConnectAI-E/MidJourney-Web/assets/50035229/9a21b470-0919-413e
 <details align='center'>
     <summary> 📹 点击查看更多功能</summary>
     <br>
+	<video src="https://github.com/ConnectAI-E/MidJourney-Web/assets/50035229/6ad2ffef-0f1a-43b4-a774-8d336511e072" controls ></video>
 	<video src="https://github.com/ConnectAI-E/MidJourney-Web/raw/main/assets/50035229/7092a777-d394-445b-9332-3f4d9717c138" controls ></video>
 </details>
 
