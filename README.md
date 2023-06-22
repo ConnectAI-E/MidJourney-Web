@@ -34,11 +34,13 @@
 - ✅ Support `/ReRoll` 重新生图
 - 🛠 Support `/describe` 以图生文
 - 🛠 Support `/blend` 图片融合
+- ✅ Progress percentage 绘图进度展示
+- ✅ Real-time image display 实时更新绘图结果
 - 🛠 Support Cn Prompt 兼容中文提示词
 - 🛠 Omptise Better Prompt 借助GPT一键优化提示词
 - 🛠 View historical drawing records 查看所有历史绘图记录
-- ✅ Progress percentage 绘图进度展示
-- ✅ Real-time image display 实时更新绘图结果
+- 🛠 One-click remove picture background 一键去除图片背景
+- 🛠 One-click bitmap to vector 一键位图转矢量图
 - 🛠 Permission management 界面权限管理
 - 🛠 Limit user availability 限制用户可用次数
   
