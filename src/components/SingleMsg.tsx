@@ -13,6 +13,10 @@ import {computed} from '@vue/reactivity';
 
 interface Props {
   role: ChatMessage["role"];
+  //user 的操作
+  action?: ChatMessage["action"];
+  //user 上传的图片
+  uploadImages?: ChatMessage["uploadImages"];
   message: string;
   result?: ChatMessage["result"];
   showRetry?: () => boolean;
@@ -21,7 +25,9 @@ interface Props {
 }
 
 // https://windicss.org/utilities/general/colors.html
-export default ({ role, message, result, showRetry, onRetry ,clickAction}: Props) => {
+export default ({ role, message, result, showRetry, onRetry ,clickAction,action,uploadImages}: Props) => {
+
+  // console.log(uploadImages);
   const roleClass = {
     system: "bg-gradient-to-l from-gray-400 via-gray-300 to-gray-100",
     user: "bg-gradient-to-l from-amber-600  via-amber-400 to-orange-200",
@@ -72,66 +78,109 @@ export default ({ role, message, result, showRetry, onRetry ,clickAction}: Props
           className={`shrink-0 w-7 h-7 mt-4 rounded-full op-80 ${roleClass[role]}`}
         />
 
-        {role === "user" && (
+        {role === "user" && action != "DESCRIBE" && (
           <div
             className={`message prose break-words overflow-hidden text-[14px]  op-75 `}
             dangerouslySetInnerHTML={{ __html: htmlString() }}
           />
         )}
-        {role === "assistant" && (
+        {role === "user" && action == "DESCRIBE" && uploadImages && (
           <div className="message prose flex justify-start flex-col items-start break-words overflow-hidden text-[14px]">
             <div className="flex items-center justify-center gap-2 pt-4 font-700">
-              {`${result?.finished ? "✅" : `⏳ ${result?.progress}`} [${result?.taskId}]  ${message} `}
+              {`🍺 Describe Following Image`}
             </div>
+            <PhotoView src={uploadImages[0]}>
+              <img
+                src={uploadImages[0]}
+                alt=""
+                width={"300px"}
+                className={`mt-2 rounded-md`}
+              />
+            </PhotoView>
+          </div>
+        )}
+        {role === "assistant" && result?.action != "DESCRIBE" && (
+          <div className=" message prose flex justify-start flex-col items-start break-words overflow-hidden text-[14px]">
+            <div className="flex items-center justify-center gap-2 pt-4 font-700 whitespace-pre-wrap ">
+              {`${result?.finished ? "✅" : `⏳ ${result?.progress}`} [${ result?.taskId }] ${message} `}
+            </div>
+            <PhotoView src={result?.imgUrl}>
+              <img
+                src={result?.imgUrl}
+                alt=""
+                width={"300px"}
+                className={`mt-2 rounded-md select-none`}
+              />
+            </PhotoView>
+            {result?.finished &&
+              result.action != "UPSCALE" && (
+                <div className={"mt-2"}>
+                  <ActionBtn
+                    handleClickVariate={(e) => {
+                      clickAction &&
+                        clickAction({
+                          type: "variate",
+                          content: `🎲 V${e} [${result?.taskId}]`,
+                          index: e,
+                          taskId: result?.taskId,
+                        });
+                    }}
+                    HandleClickUpscale={(e) => {
+                      clickAction &&
+                        clickAction({
+                          type: "upscale",
+                          content: `⛳️ U${e} [${result?.taskId}]`,
+                          index: e,
+                          taskId: result?.taskId,
+                        });
+                    }}
+                  />
+                </div>
+              )}
+          </div>
+        )}
+        {role === "assistant"&&result?.action == "DESCRIBE" && (
+            <div className=" message prose flex justify-start flex-col items-start break-words overflow-hidden text-[14px]">
+              <div className="flex items-center justify-center gap-2 pt-4 font-700 whitespace-pre-wrap ">
+                {`${result?.finished ? "✅" : `⏳ ${result?.progress}`} [${ result?.taskId }] `}
+              </div>
+              <div
+                  className={`message prose break-words overflow-hidden text-[14px]  op-75 `}
+                  dangerouslySetInnerHTML={{ __html: htmlString() }}
+              />
               <PhotoView src={result?.imgUrl}>
                 <img
-                  src={result?.imgUrl}
-                  alt=""
-                  width={"300px"}
-                  className={`mt-2 rounded-md`}
+                    src={result?.imgUrl}
+                    alt=""
+                    width={"300px"}
+                    className={`mt-2 rounded-md select-none`}
                 />
               </PhotoView>
 
-            {result?.finished && result.action != 'UPSCALE'&&
-            <div className={"mt-2"}>
-              <ActionBtn
-                handleClickVariate={(e) => {
-                  clickAction && clickAction({
-                    type: "variate",
-                    content: `🎲 V${e} [${result?.taskId}]`,
-                    index: e,
-                    taskId: result?.taskId
-                  })
-                }}
-                HandleClickUpscale={(e) => {
-                  clickAction && clickAction({
-                    type: "upscale",
-                    content: `⛳️ U${e} [${result?.taskId}]`,
-                    index: e,
-                    taskId: result?.taskId
-                  })
-                }}
-              />
-            </div>}
-
-          </div>
+            </div>
         )}
       </div>
       {!showRetry ||
-        (showRetry() && onRetry && result?.action != 'UPSCALE'&& (
+        (showRetry() && onRetry && result?.action != "UPSCALE" && (
           <div className="fie px-3 mb-2">
-            <div onClick={ () => {
-              // return onRetry && onRetry({
-              //   type: "reroll",
-              //   content: `🍭 ReRoll [${result?.taskId}]`,
-              //   taskId: result?.taskId
-              // })
-              return onRetry && onRetry({
-                type: "imagine",
-                content: message,
-                taskId: result?.taskId
-              })
-            }} className="gpt-retry-btn">
+            <div
+              onClick={() => {
+                // return onRetry && onRetry({
+                //   type: "reroll",
+                //   content: `🍭 ReRoll [${result?.taskId}]`,
+                //   taskId: result?.taskId
+                // })
+                return (
+                  onRetry &&
+                  onRetry({
+                    type: "imagine",
+                    content: message,
+                    taskId: result?.taskId,
+                  })
+                );
+              }}
+              className="gpt-retry-btn"
+            >
               <IconRefresh />
               <span className={"text-[12px]"}>Regenerate</span>
             </div>

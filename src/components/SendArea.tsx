@@ -1,6 +1,8 @@
 import {FunctionComponent} from 'react';
 import ClearIcon from './icons/Clear';
 import UploadImage from '@/components/UploadImage';
+import {useAtom} from 'jotai';
+import {uploadImagesUrlAtom} from '@/hooks/useUplodImage';
 
 interface SendAreaProps {
     handleKeydown: (e: KeyboardEvent) => void;
@@ -12,7 +14,7 @@ interface SendAreaProps {
     ifDisabled: boolean;
 }
 
-const SendArea: FunctionComponent<SendAreaProps> = ({
+const SendArea = forwardRef(({
                                                         ifDisabled,
                                                         handleKeydown,
                                                         handleButtonClick,
@@ -20,15 +22,20 @@ const SendArea: FunctionComponent<SendAreaProps> = ({
                                                         clear,
                                                         inputRefItem,
                                                         ifLoading,
-                                                    }) => {
+                                                    }:SendAreaProps,ref) => {
 
     const textareaRef = useRef(null);
     const [imageSrcs, setImageSrcs] = useState<string[]>([]);
-
+    const [imageUploadSrc,setImageUpload] = useAtom(uploadImagesUrlAtom)
+    useEffect(() => {
+        setImageUpload(imageSrcs)
+        // if(imageSrcs.length===0) return
+        console.log(imageSrcs);
+    },[imageSrcs])
 
     const handlePaste = (event: any) => {
         const items = (event.clipboardData || event.originalEvent.clipboardData).items;
-        const imageFiles = [];
+        const imageFiles = [] as any;
 
         for (const item of items) {
             if (item.type.indexOf('image') !== -1) {
@@ -37,9 +44,16 @@ const SendArea: FunctionComponent<SendAreaProps> = ({
                 imageFiles.push(imageUrl);
             }
         }
-
         setImageSrcs([...imageSrcs, ...imageFiles]);
     };
+
+    function emptyImagesSrc(){
+        setImageSrcs([])
+    }
+
+    useImperativeHandle(ref, () => ({
+        emptyImagesSrc
+    }));
 
     const handleDeleteByIndex = (index: number) => {
         const newImageSrcs = [...imageSrcs];
@@ -109,6 +123,6 @@ const SendArea: FunctionComponent<SendAreaProps> = ({
             ) }
         </div>
     );
-};
+})
 
 export default SendArea;

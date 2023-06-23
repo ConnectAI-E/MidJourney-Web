@@ -57,6 +57,14 @@ export const mjImageUpReroll = async (taskId: string) => {
     return response;
 };
 
+export const mjImageDescribe = async (imageBase64: string) => {
+    const response = await fetchMJPost('/mj/submit/describe', {
+        base64: imageBase64,
+    });
+    return response;
+};
+
+
 export const mjGetQueue = async () => {
     const response = await fetchMJGet('/mj/queue');
     return response;

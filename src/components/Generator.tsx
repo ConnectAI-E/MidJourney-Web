@@ -20,6 +20,9 @@ import {
     taskInfoAtom,
 } from '@/hooks/useTaskInfo';
 import { PhotoProvider } from 'react-photo-view';
+import {firstImageAtom, hasUploadImagesAtom} from '@/hooks/useUplodImage';
+import {urlToBase64} from '@/utils/image';
+import {an} from 'vitest/dist/types-94cfe4b4';
 
 
 export default function () {
@@ -40,7 +43,9 @@ export default function () {
     const[taskNow,setTaskNow] = useAtom(taskInfoAtom)
     const[,addAssistantMsg] = useAtom(msgAtom.AddAssistantMsgAtom)
     const [ifOnTask,setEndTask] = useAtom(ifTaskOnWorkingAtom)
-
+    const [ifHasUploadImage] = useAtom(hasUploadImagesAtom)
+    const [firstImageSrc] = useAtom(firstImageAtom)
+    const sendAreaRef = useRef<any>()
     useEffect(() => {
         let taskNowInfo ;
         if(!data){return}
@@ -70,6 +75,7 @@ export default function () {
     const [loading, setLoading] = useAtom(ifTaskOnWorkingAtom);
     //test
     useEffect(() => {
+        console.log(messageList);
         if (isAllowCache.current) {
             const sortedMessages = new ChatMessageProcessor(messageList, userPlan).sortedMessages;
             setItem('messageList', JSON.stringify(sortedMessages));
@@ -103,6 +109,26 @@ export default function () {
 
 
     const handleButtonClick = async () => {
+        if(ifHasUploadImage) {
+            console.log(firstImageSrc)
+            const blob = await urlToBase64(firstImageSrc)
+            const newUserMsg = {
+                role: 'user',
+                content: "___",
+                action: "DESCRIBE",
+                uploadImages: [blob],
+                time: new Date().getTime(),
+            } as ChatMessage;
+            addUser(newUserMsg);
+            await requestWithLatestMessage(newUserMsg);
+            if (inputRef.current) {
+                inputRef.current.value = '';
+            }
+            // console.log(sendAreaRef);
+            sendAreaRef.current?.emptyImagesSrc();
+            return
+        }
+
         const inputValue = inputRef?.current;
         if (!inputValue)
             return;
@@ -213,6 +239,8 @@ export default function () {
                         <SingleMsg
                             key={ index }
                             role={ message.role }
+                            action={ message.action }
+                            uploadImages={ message.uploadImages}
                             message={ message.content }
                             result={ message.result }
                             showRetry={ () => (message.role === 'assistant'&&!loading) }
@@ -232,7 +260,9 @@ export default function () {
 
                     { currentError &&
                         <ErrorMsg data={ currentError } onRetry={ retryGenerateImage }/> }
-                    <SendArea ifDisabled={ false }
+                    <SendArea
+                        ref={sendAreaRef}
+                        ifDisabled={ false }
                               handleStopClick={ stopStreamFetch }
                               handleKeydown={ handleKeydown }
                               handleButtonClick={ handleButtonClick }
