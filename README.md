@@ -37,7 +37,7 @@
 - ✅ Progress percentage 绘图进度展示
 - ✅ Real-time image display 实时更新绘图结果
 - 🛠 Support Cn Prompt 兼容中文提示词
-- 🛠 Omptise Better Prompt 借助GPT一键优化提示词
+- 🛠 Better Better Prompt 借助GPT一键优化提示词
 - 🛠 View historical drawing records 查看所有历史绘图记录
 - 🛠 One-click remove picture background 一键去除图片背景
 - 🛠 One-click bitmap to vector 一键位图转矢量图
