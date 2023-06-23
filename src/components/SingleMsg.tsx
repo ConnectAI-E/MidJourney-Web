@@ -94,7 +94,7 @@ export default ({ role, message, result, showRetry, onRetry ,clickAction,action,
                 src={uploadImages[0]}
                 alt=""
                 width={"300px"}
-                className={`mt-2 rounded-md`}
+                className={`mt-2 rounded-md select-none`}
               />
             </PhotoView>
           </div>
