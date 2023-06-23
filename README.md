@@ -44,6 +44,7 @@
 - 🛠 One-click bitmap to vector 一键位图转矢量图
 - 🛠 Permission management 界面权限管理
 - 🛠 Limit user availability 限制用户可用次数
+- 🛠 Mobile adaptation 移动端适配
   
 
 ## Quick Start
