@@ -16,7 +16,7 @@
 
 <div align="center">
 	
-  🚧 正在施工~进度70% | [查看常见部署问题 🤞](https://github.com/ConnectAI-E/MidJourney-Web/wiki/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB)
+  🚧 正在施工~进度80% | [查看常见部署问题 🤞](https://github.com/ConnectAI-E/MidJourney-Web/wiki/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB)
 	
 </div>
 
@@ -110,10 +110,12 @@ pnpm run dev
 https://github.com/ConnectAI-E/MidJourney-Web/assets/50035229/9a21b470-0919-413e-b020-ecd28837c399
 
 <details align='center'>
-    <summary> 📹 点击查看更多功能</summary>
+    <summary> 📹 点击观看更多功能演示</summary>
     <br>
 	<video src="https://github.com/ConnectAI-E/MidJourney-Web/assets/50035229/6ad2ffef-0f1a-43b4-a774-8d336511e072" controls ></video>
 	<video src="https://github.com/ConnectAI-E/MidJourney-Web/raw/main/assets/50035229/7092a777-d394-445b-9332-3f4d9717c138" controls ></video>
+	<video src="https://user-images.githubusercontent.com/50035229/248157796-95e6697c-5f3f-469e-8d36-2ec93d88f1c5.mp4" controls ></video>
+
 </details>
 
 ##  ConnectAI-E
