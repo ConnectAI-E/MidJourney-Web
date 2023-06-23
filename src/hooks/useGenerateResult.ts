@@ -4,7 +4,7 @@ import {useAtom} from 'jotai';
 import {ChatMessageProcessor} from '@/utils/Chat/ChatMessageProcessor';
 import {ShowLicenseFromAtom} from '@/hooks/useLayout';
 import {
-    mjImageByPrompt,
+    mjImageByPrompt, mjImageDescribe,
     mjImageUpReroll,
     mjImageUpScale,
     mjImageUpVariate,
@@ -37,24 +37,29 @@ export const useGenerateResult = () => {
                 response = await mjImageByPrompt(
                     body.content,
                 );
-            }
-            else if (action === 'VARIATION') {
+            } else if (action === 'VARIATION') {
                 response = await mjImageUpVariate(
                     body.actionInfo?.taskId ?? '',
                     body.actionInfo?.index ?? 1,
                 );
-            }
-            else if (action === 'UPSCALE') {
+            } else if (action === 'UPSCALE') {
                 response = await mjImageUpScale(
                     body.actionInfo?.taskId ?? '',
                     body.actionInfo?.index ?? 1,
                 );
-            }
-            else if (action === 'REROLL') {
+            } else if (action === 'REROLL') {
                 response = await mjImageUpReroll(
                     body.actionInfo?.taskId ?? '',
                 );
+            } else if (action === 'DESCRIBE') {
+                if (!body.uploadImages) return;
+                {
+                    response = await mjImageDescribe(
+                        body.uploadImages[0],
+                    );
+                }
             }
+
             console.log(response);
             setTaskId(response?.result);
             setWorking(true);

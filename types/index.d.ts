@@ -4,11 +4,12 @@ export interface ChatMessage {
     result?: MidjourneyResult // mj result
     action?: ActionType // 用户发起的命令类型
     actionInfo?: ActionInfo // 用户发起的命令类型
+    uploadImages?: string[] // 用户上传的图片
     date?: string
     time?: number
 }
 
-export type ActionType = 'IMAGINE' | 'UPSCALE' | 'VARIATION' | 'REROLL' | 'UNKNOWN'
+export type ActionType = 'IMAGINE' | 'UPSCALE' | 'VARIATION' | 'REROLL' | 'DESCRIBE'| 'UNKNOWN'
 
 export type ActionInfo = {
     taskId: string
