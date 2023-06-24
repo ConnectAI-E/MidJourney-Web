@@ -99,7 +99,7 @@ pnpm run dev
 
 <h3>Vercel</h3>
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/ConnectAI-E/MidJourney-Web&env=VITE_MIDJOURNEY_PROXY_URL&project-name=midjourney-web&repository-name=Midjourney-Web)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/ConnectAI-E/MidJourney-Web&env=VITE_MIDJOURNEY_PROXY_URL&env=VITE_MIDJOURNEY_PROXY_API_SECRET&project-name=midjourney-web&repository-name=Midjourney-Web)
 </details>
 
 
