@@ -133,7 +133,7 @@ export default ({ role, message, result, showRetry, onRetry ,clickAction,action,
                 className={`mt-2 rounded-md select-none`}
               />
             </PhotoView>
-            {result?.finished && result.action != "UPSCALE" && (
+            {result?.finished && result.action != "UPSCALE" && result.action != "BLEND"  && (
               <div className={"mt-2"}>
                 <ActionBtn
                   handleClickVariate={(e) => {
