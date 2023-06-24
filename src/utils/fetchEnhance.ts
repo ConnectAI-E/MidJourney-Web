@@ -10,24 +10,26 @@ export async function fetchPost(url = '', data = {}) {
   return response.json()
 }
 export async function fetchMJPost(url = '', data = {}) {
-    const response = await fetch('/mj-api'+url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    })
+    const response = await fetch("/mj-api" + url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "mj-api-secret": import.meta.env.VITE_MIDJOURNEY_PROXY_API_SECRET??'',
+      },
+      body: JSON.stringify(data),
+    });
     return response.json()
 }
 
 
 export async function fetchMJGet(url = '') {
-    const response = await fetch('/mj-api'+url, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
+    const response = await fetch("/mj-api" + url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "mj-api-secret": import.meta.env.VITE_MIDJOURNEY_PROXY_API_SECRET ?? "",
+      },
+    });
     if (!response.ok) {
         throw new Error(response.statusText)
     }
