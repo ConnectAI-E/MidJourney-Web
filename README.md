@@ -34,7 +34,7 @@
 - ✅ Support `/reRoll` 重新生图
 - ✅ Support `/describe` 以图生文
 - 🛠 Support `/describe imagine` 根据描述画图
-- 🛠 Support `/blend` 图片融合
+- ✅ Support `/blend` 图片融合
 - ✅ Progress percentage 绘图进度展示
 - ✅ Real-time image display 实时更新绘图结果
 - 🛠 Support Cn Prompt 兼容中文提示词
