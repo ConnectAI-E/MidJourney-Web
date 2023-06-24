@@ -45,6 +45,7 @@
 - 🛠 Permission management 界面权限管理
 - 🛠 Limit user availability 限制用户可用次数
 - 🛠 Mobile adaptation 移动端适配
+- 🛠 Account pool mechanism MJ账号池机制增加并发
   
 
 ## Quick Start
