@@ -9,7 +9,7 @@ export interface ChatMessage {
     time?: number
 }
 
-export type ActionType = 'IMAGINE' | 'UPSCALE' | 'VARIATION' | 'REROLL' | 'DESCRIBE'| 'UNKNOWN'
+export type ActionType = 'IMAGINE' | 'UPSCALE' | 'VARIATION' | 'REROLL' | 'DESCRIBE'| 'BLEND'|'UNKNOWN'
 
 export type ActionInfo = {
     taskId: string
