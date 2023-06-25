@@ -4,11 +4,13 @@ import {useAtom} from 'jotai';
 import {ChatMessageProcessor} from '@/utils/Chat/ChatMessageProcessor';
 import {ShowLicenseFromAtom} from '@/hooks/useLayout';
 import {
-    mjImageByPrompt, mjImageDescribe,
-    mjImageUpReroll,
-    mjImageUpScale,
-    mjImageUpVariate,
-} from '@/apis/image';
+  mjImageByPrompt,
+  mjImageDescribe,
+  mjImageUpReroll,
+  mjImageUpScale,
+  mjImageUpVariate,
+  mjImageBlend,
+} from "@/apis/image";
 import {ifTaskOnWorkingAtom, setTaskIdAtom} from '@/hooks/useTaskInfo';
 
 
@@ -57,6 +59,11 @@ export const useGenerateResult = () => {
                     response = await mjImageDescribe(
                         body.uploadImages[0],
                     );
+                }
+            } else if (action === 'BLEND') { 
+                if (!body.uploadImages) return;
+                {
+                    response = await mjImageBlend(body.uploadImages);
                 }
             }
 

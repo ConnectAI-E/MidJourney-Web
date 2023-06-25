@@ -94,15 +94,36 @@ export default ({ role, message, result, showRetry, onRetry ,clickAction,action,
                 src={uploadImages[0]}
                 alt=""
                 width={"300px"}
-                className={`mt-2 rounded-md`}
+                className={`mt-2 rounded-md select-none`}
               />
             </PhotoView>
+          </div>
+        )}
+        {role === "user" && action == "BLEND" && uploadImages && (
+          <div className="message prose flex justify-start flex-col items-start break-words overflow-hidden text-[14px]">
+            <div className="flex items-center justify-center gap-2 pt-4 font-700">
+              {`🍺 Blend Following Images`}
+            </div>
+            {uploadImages.map((item, index) => { 
+              return (
+                <PhotoView src={item}>
+                  <img
+                    src={item}
+                    alt=""
+                    width={"300px"}
+                    className={`mt-2 rounded-md select-none`}
+                  />
+                </PhotoView>
+              )
+            })}
           </div>
         )}
         {role === "assistant" && result?.action != "DESCRIBE" && (
           <div className=" message prose flex justify-start flex-col items-start break-words overflow-hidden text-[14px]">
             <div className="flex items-center justify-center gap-2 pt-4 font-700 whitespace-pre-wrap ">
-              {`${result?.finished ? "✅" : `⏳ ${result?.progress}`} [${ result?.taskId }] ${message} `}
+              {`${result?.finished ? "✅" : `⏳ ${result?.progress}`} [${
+                result?.taskId
+              }] ${message} `}
             </div>
             <PhotoView src={result?.imgUrl}>
               <img
@@ -112,52 +133,52 @@ export default ({ role, message, result, showRetry, onRetry ,clickAction,action,
                 className={`mt-2 rounded-md select-none`}
               />
             </PhotoView>
-            {result?.finished &&
-              result.action != "UPSCALE" && (
-                <div className={"mt-2"}>
-                  <ActionBtn
-                    handleClickVariate={(e) => {
-                      clickAction &&
-                        clickAction({
-                          type: "variate",
-                          content: `🎲 V${e} [${result?.taskId}]`,
-                          index: e,
-                          taskId: result?.taskId,
-                        });
-                    }}
-                    HandleClickUpscale={(e) => {
-                      clickAction &&
-                        clickAction({
-                          type: "upscale",
-                          content: `⛳️ U${e} [${result?.taskId}]`,
-                          index: e,
-                          taskId: result?.taskId,
-                        });
-                    }}
-                  />
-                </div>
-              )}
+            {result?.finished && result.action != "UPSCALE" && result.action != "BLEND"  && (
+              <div className={"mt-2"}>
+                <ActionBtn
+                  handleClickVariate={(e) => {
+                    clickAction &&
+                      clickAction({
+                        type: "variate",
+                        content: `🎲 V${e} [${result?.taskId}]`,
+                        index: e,
+                        taskId: result?.taskId,
+                      });
+                  }}
+                  HandleClickUpscale={(e) => {
+                    clickAction &&
+                      clickAction({
+                        type: "upscale",
+                        content: `⛳️ U${e} [${result?.taskId}]`,
+                        index: e,
+                        taskId: result?.taskId,
+                      });
+                  }}
+                />
+              </div>
+            )}
           </div>
         )}
-        {role === "assistant"&&result?.action == "DESCRIBE" && (
-            <div className=" message prose flex justify-start flex-col items-start break-words overflow-hidden text-[14px]">
-              <div className="flex items-center justify-center gap-2 pt-4 font-700 whitespace-pre-wrap ">
-                {`${result?.finished ? "✅" : `⏳ ${result?.progress}`} [${ result?.taskId }] `}
-              </div>
-              <div
-                  className={`message prose break-words overflow-hidden text-[14px]  op-75 `}
-                  dangerouslySetInnerHTML={{ __html: htmlString() }}
-              />
-              <PhotoView src={result?.imgUrl}>
-                <img
-                    src={result?.imgUrl}
-                    alt=""
-                    width={"300px"}
-                    className={`mt-2 rounded-md select-none`}
-                />
-              </PhotoView>
-
+        {role === "assistant" && result?.action == "DESCRIBE" && (
+          <div className=" message prose flex justify-start flex-col items-start break-words overflow-hidden text-[14px]">
+            <div className="flex items-center justify-center gap-2 pt-4 font-700 whitespace-pre-wrap ">
+              {`${result?.finished ? "✅" : `⏳ ${result?.progress}`} [${
+                result?.taskId
+              }] `}
             </div>
+            <div
+              className={`message prose break-words overflow-hidden text-[14px]  op-75 `}
+              dangerouslySetInnerHTML={{ __html: htmlString() }}
+            />
+            <PhotoView src={result?.imgUrl}>
+              <img
+                src={result?.imgUrl}
+                alt=""
+                width={"300px"}
+                className={`mt-2 rounded-md select-none`}
+              />
+            </PhotoView>
+          </div>
         )}
       </div>
       {!showRetry ||

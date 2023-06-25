@@ -65,6 +65,14 @@ export const mjImageDescribe = async (imageBase64: string) => {
 };
 
 
+export const mjImageBlend = async (ImageBase64s: string[]) => {
+    const response = await fetchMJPost("/mj/submit/blend", {
+      base64Array: ImageBase64s,
+    });
+    return response;
+ }
+
+
 export const mjGetQueue = async () => {
     const response = await fetchMJGet('/mj/queue');
     return response;

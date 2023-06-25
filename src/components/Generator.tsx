@@ -20,9 +20,14 @@ import {
     taskInfoAtom,
 } from '@/hooks/useTaskInfo';
 import { PhotoProvider } from 'react-photo-view';
-import {firstImageAtom, hasUploadImagesAtom} from '@/hooks/useUplodImage';
+import {
+  firstImageAtom,
+  hasUploadImagesAtom,
+  uploadImagesUrlAtom,
+} from "@/hooks/useUplodImage";
 import {urlToBase64} from '@/utils/image';
 import {an} from 'vitest/dist/types-94cfe4b4';
+import { cpuUsage } from 'process';
 
 
 export default function () {
@@ -42,7 +47,8 @@ export default function () {
 
     const[taskNow,setTaskNow] = useAtom(taskInfoAtom)
     const[,addAssistantMsg] = useAtom(msgAtom.AddAssistantMsgAtom)
-    const [ifOnTask,setEndTask] = useAtom(ifTaskOnWorkingAtom)
+    const [ifOnTask, setEndTask] = useAtom(ifTaskOnWorkingAtom)
+    const [uploadImages] = useAtom(uploadImagesUrlAtom);
     const [ifHasUploadImage] = useAtom(hasUploadImagesAtom)
     const [firstImageSrc] = useAtom(firstImageAtom)
     const sendAreaRef = useRef<any>()
@@ -109,8 +115,10 @@ export default function () {
 
 
     const handleButtonClick = async () => {
-        if(ifHasUploadImage) {
-            console.log(firstImageSrc)
+        const length = uploadImages?.length;
+        console.log(uploadImages)
+        if(length===1) {
+            // console.log(firstImageSrc)
             const blob = await urlToBase64(firstImageSrc)
             const newUserMsg = {
                 role: 'user',
@@ -128,7 +136,29 @@ export default function () {
             sendAreaRef.current?.emptyImagesSrc();
             return
         }
+        if (length > 1) { 
+            let uploadBlobs = [] as any
+            for (let i = 0; i < length; i++) { 
+                const blob = await urlToBase64(uploadImages[i]);
+                uploadBlobs.push(blob)
+            }
+              const newUserMsg = {
+                role: "user",
+                content: "___",
+                action: "BLEND",
+                uploadImages: uploadBlobs,
+                time: new Date().getTime(),
+              } as ChatMessage;
+              addUser(newUserMsg);
+              await requestWithLatestMessage(newUserMsg);
+              if (inputRef.current) {
+                inputRef.current.value = "";
+              }
+              // console.log(sendAreaRef);
+              sendAreaRef.current?.emptyImagesSrc();
+              return;
 
+        }
         const inputValue = inputRef?.current;
         if (!inputValue)
             return;

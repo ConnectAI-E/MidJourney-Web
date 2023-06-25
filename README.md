@@ -34,7 +34,7 @@
 - ✅ Support `/reRoll` 重新生图
 - ✅ Support `/describe` 以图生文
 - 🛠 Support `/describe imagine` 根据描述画图
-- 🛠 Support `/blend` 图片融合
+- ✅ Support `/blend` 图片融合
 - ✅ Progress percentage 绘图进度展示
 - ✅ Real-time image display 实时更新绘图结果
 - 🛠 Support Cn Prompt 兼容中文提示词
@@ -45,6 +45,7 @@
 - 🛠 Permission management 界面权限管理
 - 🛠 Limit user availability 限制用户可用次数
 - 🛠 Mobile adaptation 移动端适配
+- 🛠 Account pool mechanism MJ账号池机制增加并发
   
 
 ## Quick Start
@@ -56,6 +57,7 @@ docker run -d --name midjourney-proxy \
  -e mj.discord.guild-id=xxx \
  -e mj.discord.channel-id=xxx \
  -e mj.discord.user-token=xxx \
+ -e mj.api-secret=xxx \
  --restart=always \
  novicezk/midjourney-proxy:2.2.3
 ```
@@ -65,7 +67,7 @@ then check midjourney-api swagger document: http://localhost:8080/mj
 
 <details>
     <summary>其他一键部署方式</summary>
-<br>
+
 <h3>Railway</h3>
 
 Railway是一个提供弹性部署方案的平台，为MidJourney的调用提供了方便的海外服务。
@@ -85,18 +87,19 @@ Zeabur 服务器运行在国外，但是其生成的域名 *.zeabur.app 没有�
 
 ### 2. Midjourney-Web
 ```bash
+## 填入midjourney-api部署的host地址、访问api的秘钥'mj.api-secret'
 mv .env.example .env
+
 pnpm install
 pnpm run dev
 ```
 
-
 <details>
     <summary>其他一键部署方式</summary>
-<br>
+
 <h3>Vercel</h3>
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/ConnectAI-E/MidJourney-Web&env=VITE_MIDJOURNEY_PROXY_URL&project-name=midjourney-web&repository-name=Midjourney-Web)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/ConnectAI-E/MidJourney-Web&env=VITE_MIDJOURNEY_PROXY_URL&env=VITE_MIDJOURNEY_PROXY_API_SECRET&project-name=midjourney-web&repository-name=Midjourney-Web)
 </details>
 
 
