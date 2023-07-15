@@ -29,7 +29,7 @@
     "jotai": "^2.0.3",
     "katex": "^0.16.4",
     "kiss-core": "^0.2.4",
-    "kiss-msg": "/Users/river/dev/vuePool/design-toolkit-cn/packages/kiss-msg",
+    "kiss-msg": "latest",
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
     "markdown-it": "^13.0.1",
