@@ -29,24 +29,24 @@
 ## Feature List
 
 - ✅ Support `/imagine`  生图操作
-- ✅ Support `/upscale 1-4` 高清图生成
-- ✅ Support `/variation 1-4`图片变体
-- ✅ Support `/reRoll` 重新生图
-- ✅ Support `/describe` 以图生文
-- 🛠 Support `/describe imagine` 根据描述画图
-- ✅ Support `/blend` 图片融合
-- ✅ Progress percentage 绘图进度展示
-- ✅ Real-time image display 实时更新绘图结果
-- 🛠 Support Cn Prompt 兼容中文提示词
-- 🛠 Better Better Prompt 借助GPT一键优化提示词
-- 🛠 View historical drawing records 查看所有历史绘图记录
-- 🛠 One-click remove picture background 一键去除图片背景
-- 🛠 One-click bitmap to vector 一键位图转矢量图
-- 🛠 Permission management 界面权限管理
-- 🛠 Limit user availability 限制用户可用次数
-- 🛠 Mobile adaptation 移动端适配
-- 🛠 Account pool mechanism MJ账号池机制增加并发
-  
+- ✅ Support Diagram operations/imagine
+- ✅ Support HD graph generation/upscale 1-4
+- ✅ Support image variations/variation 1-4
+- ✅ Support Regenerate the graph/reRoll
+- ✅ Support is illustrated with a text/describe
+- 🛠 Support draws according to the description/describe imagine
+- ✅ Support Image Fusion/blend
+- ✅ Progress percentage Drawing progress display
+- ✅ Real-time image display updates drawing results in real time
+- 🛠 Support Cn Prompt is compatible with Chinese prompt words
+- 🛠 Better Better Prompt optimizes prompt words with GPT in one click
+- 🛠 View historical drawing records View all historical drawing records
+- 🛠 One-click remove picture background Remove picture background with one click
+- 🛠 One-click bitmap to vector
+- 🛠 Permission management Interface permission management
+- 🛠 Limit user availability Limit the number of times a user is available
+- 🛠 Mobile adaptation
+- 🛠 Account pool mechanism MJ account pool mechanism increases concurrency
 
 ## Quick Start
 
