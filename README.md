@@ -59,7 +59,7 @@ docker run -d --name midjourney-proxy \
  -e mj.discord.user-token=xxx \
  -e mj.api-secret=xxx \
  --restart=always \
- novicezk/midjourney-proxy:2.2.3
+ novicezk/midjourney-proxy:2.3.5
 ```
 more config info [MidJourney-Api](https://github.com/novicezk/midjourney-proxy/blob/main/docs/discord-params.md)
 
