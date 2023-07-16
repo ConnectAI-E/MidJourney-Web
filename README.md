@@ -28,14 +28,13 @@
 
 ## Feature List
 
-- ✅ Support `/imagine`  生图操作
-- ✅ Support Diagram operations/imagine
-- ✅ Support HD graph generation/upscale 1-4
-- ✅ Support image variations/variation 1-4
-- ✅ Support Regenerate the graph/reRoll
-- ✅ Support is illustrated with a text/describe
-- 🛠 Support draws according to the description/describe imagine
-- ✅ Support Image Fusion/blend
+- ✅ Support Diagram operations `/imagine`
+- ✅ Support HD graph generation `/upscale 1-4`
+- ✅ Support image variations `/variation 1-4`
+- ✅ Support Regenerate the `graph/reRoll`
+- ✅ Support is illustrated with a text `/describe`
+- 🛠 Support draws according to the description `/describe imagine`
+- ✅ Support Image Fusion `/blend`
 - ✅ Progress percentage Drawing progress display
 - ✅ Real-time image display updates drawing results in real time
 - 🛠 Support Cn Prompt is compatible with Chinese prompt words
