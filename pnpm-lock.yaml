@@ -88,6 +88,9 @@ devDependencies:
   '@svgx/vite-plugin-react':
     specifier: ^1.0.1
     version: 1.0.1(@types/node@18.16.19)(sass@1.63.6)
+  '@swc/core':
+    specifier: ^1.3.69
+    version: 1.3.69
   '@types/lodash':
     specifier: ^4.14.195
     version: 4.14.195
@@ -124,6 +127,9 @@ devDependencies:
   cross-env:
     specifier: ^7.0.3
     version: 7.0.3
+  esbuild:
+    specifier: ^0.18.13
+    version: 0.18.13
   esno:
     specifier: ^0.17.0
     version: 0.17.0
@@ -156,7 +162,7 @@ devDependencies:
     version: 4.9.5
   unocss:
     specifier: ^0.53.5
-    version: 0.53.5(postcss@8.4.24)(rollup@3.26.2)(vite@4.4.4)
+    version: 0.53.5(postcss@8.4.26)(rollup@3.26.2)(vite@4.4.4)
   unplugin-auto-import:
     specifier: ^0.16.6
     version: 0.16.6(@vueuse/core@10.2.1)(rollup@3.26.2)
@@ -1136,7 +1142,7 @@ packages:
       sirv: 2.0.3
     dev: true
 
-  /@unocss/postcss@0.53.5(postcss@8.4.24):
+  /@unocss/postcss@0.53.5(postcss@8.4.26):
     resolution: {integrity: sha512-IfZl4GxrpegP/861bp3e0X3VcQJ9/M3VxC9UQ7zzxkOz/E8R09iMpbnznVLrTiLp2r96p5k/ggXLoadFm1FxGA==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -1147,7 +1153,7 @@ packages:
       css-tree: 2.3.1
       fast-glob: 3.3.0
       magic-string: 0.30.1
-      postcss: 8.4.24
+      postcss: 8.4.26
     dev: true
 
   /@unocss/preset-attributify@0.53.5:
@@ -4625,7 +4631,7 @@ packages:
       detect-node: 2.1.0
     dev: false
 
-  /unocss@0.53.5(postcss@8.4.24)(rollup@3.26.2)(vite@4.4.4):
+  /unocss@0.53.5(postcss@8.4.26)(rollup@3.26.2)(vite@4.4.4):
     resolution: {integrity: sha512-LXAdtzAaH8iEDWxW4t9i6TvJNw0OSrgdN+jw8rAZAWb73Nx51ZLoKPUB1rFvQMr2Li7LcsUj5hYpOrQbhhafYg==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -4638,7 +4644,7 @@ packages:
       '@unocss/cli': 0.53.5(rollup@3.26.2)
       '@unocss/core': 0.53.5
       '@unocss/extractor-arbitrary-variants': 0.53.5
-      '@unocss/postcss': 0.53.5(postcss@8.4.24)
+      '@unocss/postcss': 0.53.5(postcss@8.4.26)
       '@unocss/preset-attributify': 0.53.5
       '@unocss/preset-icons': 0.53.5
       '@unocss/preset-mini': 0.53.5
