@@ -12,7 +12,7 @@
     ]
   },
   "scripts": {
-    "dev": "cross-env NODE_ENV=development vite --mode=development",
+    "dev": "cross-env NODE_ENV=development vite --mode=development --port 8090",
     "build": "vite build",
     "serve": "vite preview",
     "lint": "eslint \"**/*.{js,jsx,ts,tsx,json}\"",
