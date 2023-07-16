@@ -13,5 +13,3 @@ services:
     ports:
       - 8090:8090
     restart: unless-stopped
-    depends_on:
-      - midjourney-proxy
