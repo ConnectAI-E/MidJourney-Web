@@ -93,6 +93,11 @@ pnpm install
 pnpm run dev
 ```
 
+Or if you want run it automatically with docker compose (note: you still need your own `.env` file by run command `mv .env.example .env`)
+```bash
+docker compose up
+```
+
 <details>
     <summary>其他一键部署方式</summary>
 
