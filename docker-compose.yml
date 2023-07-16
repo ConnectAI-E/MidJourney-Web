@@ -7,6 +7,9 @@ services:
       dockerfile: Dockerfile
     env_file:
       - .env
+    volumes:
+      - /app/node_modules
+      - .:/app
     environment:
       VITE_MIDJOURNEY_PROXY_URL: ${VITE_MIDJOURNEY_PROXY_URL}
       VITE_MIDJOURNEY_PROXY_API_SECRET: ${VITE_MIDJOURNEY_PROXY_API_SECRET}
