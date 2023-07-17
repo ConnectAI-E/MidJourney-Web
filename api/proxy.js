@@ -1,8 +1,6 @@
 const {
     createProxyMiddleware
 } = require('http-proxy-middleware')
-const { loadEnv } = require("vite");
-
 
 module.exports = (req, res) => {
     let target = ''
