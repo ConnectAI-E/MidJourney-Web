@@ -1,25 +1,20 @@
-// api/proxy.js
-// 该服务为 vercel serve跨域处理
-const { createProxyMiddleware } = require('http-proxy-middleware')
-const { loadEnv } = require("vite");
-
-Object.assign(process.env, loadEnv(mode, process.cwd()))
+const {
+    createProxyMiddleware
+} = require('http-proxy-middleware')
 module.exports = (req, res) => {
     let target = ''
     // 代理目标地址
-    // 这里使用 backend 主要用于区分 vercel serverless 的 api 路径
-    // target 替换为你跨域请求的服务器 如： http://baidu.com
-    if (req.url.startsWith('/mj-api')) {
-        target = process.env.VITE_MIDJOURNEY_PROXY_URL;
+    // xxxxx 替换为你跨域请求的服务器 如： http://baidu.com
+    if (req.url.startsWith('/mj-api')) { //这里使用/api可能会与vercel serverless 的 api 路径冲突，根据接口进行调整
+        target = 'https://midjourney-proxy-production-1382.up.railway.app' //这里就是在vite中配置的一样
     }
     // 创建代理对象并转发请求
     createProxyMiddleware({
         target,
         changeOrigin: true,
         pathRewrite: {
-            // 通过路径重写，去除请求路径中的 `/backend`
-            // 例如 /backend/user/login 将被转发到
-            '^/mj-api/': '/',
-        },
+            // 通过路径重写，去除请求路径中的 `/api`
+            '^/mj-api/': '/'
+        }
     })(req, res)
 }
