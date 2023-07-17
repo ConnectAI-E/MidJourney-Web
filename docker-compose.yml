@@ -14,5 +14,5 @@ services:
       VITE_MIDJOURNEY_PROXY_URL: ${VITE_MIDJOURNEY_PROXY_URL}
       VITE_MIDJOURNEY_PROXY_API_SECRET: ${VITE_MIDJOURNEY_PROXY_API_SECRET}
     ports:
-      - 8090:8090
+      - 4173:4173
     restart: unless-stopped

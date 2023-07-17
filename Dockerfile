@@ -23,7 +23,7 @@ COPY . .
 RUN pnpm run build
 
 # Expose the application port
-EXPOSE 8090 9899
+EXPOSE 4173 9899
 
 # Start the application
-CMD ["pnpm", "run", "dev"]
+CMD ["pnpm", "run", "serve"]
