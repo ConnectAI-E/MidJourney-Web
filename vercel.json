@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/mj-api/(.*)",
+      "destination": "/api/proxy"
+    }
+  ]
+}
