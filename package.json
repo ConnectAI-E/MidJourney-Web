@@ -3,7 +3,7 @@
   "private": false,
   "version": "0.0.1",
   "license": "MIT",
-  "type": "module",
+  "type": "commonjs",
   "author": "Leizhenpeng <laolei@forkway.cn>, Kenny Dizi <chitrung09t2@gmail.com> and Community",
   "description": "midjourney web client",
   "lint-staged": {
