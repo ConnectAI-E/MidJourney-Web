@@ -7,10 +7,8 @@ const { loadEnv } = require("vite");
 module.exports = (req, res) => {
     let target = ''
     // 代理目标地址
-    // xxxxx 替换为你跨域请求的服务器 如： http://baidu.com
     if (req.url.startsWith('/mj-api')) { //这里使用/api可能会与vercel serverless 的 api 路径冲突，根据接口进行调整
-        const hostUrl = 'https://midjourney-proxy-production-1382.up.railway.app';
-        console.log(hostUrl)
+        target = process.env.VITE_MIDJOURNEY_PROXY_URL;
     }
     // 创建代理对象并转发请求
     createProxyMiddleware({
