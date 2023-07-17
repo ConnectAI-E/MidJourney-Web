@@ -1,7 +1,9 @@
 // api/proxy.js
 // 该服务为 vercel serve跨域处理
 const { createProxyMiddleware } = require('http-proxy-middleware')
+const { loadEnv } = require("vite");
 
+Object.assign(process.env, loadEnv(mode, process.cwd()))
 module.exports = (req, res) => {
     let target = ''
     // 代理目标地址
