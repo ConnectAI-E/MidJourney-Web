@@ -60,6 +60,13 @@ docker run -d --name midjourney-proxy \
  --restart=always \
  novicezk/midjourney-proxy:2.3.5
 ```
+
+例如
+```
+url->https://discord.com/channels/1109486780236967923/1109486781751107611
+guild-id->1109486780236967923
+channel-id->1109486781751107611
+```
 more config info [MidJourney-Api](https://github.com/novicezk/midjourney-proxy/blob/main/docs/discord-params.md)
 
 then check midjourney-api swagger document: http://localhost:8080/mj
