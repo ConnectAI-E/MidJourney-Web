@@ -58,7 +58,7 @@ docker run -d --name midjourney-proxy \
  -e mj.discord.user-token=xxx \
  -e mj.api-secret=xxx \
  --restart=always \
- novicezk/midjourney-proxy:2.3.5
+ novicezk/midjourney-proxy:2.5
 ```
 
 例如
