@@ -45,7 +45,6 @@
 - 🛠 Permission management Interface permission management
 - 🛠 Limit user availability Limit the number of times a user is available
 - 🛠 Mobile adaptation
-- 🛠 Account pool mechanism MJ account pool mechanism increases concurrency
 
 ## Quick Start
 
