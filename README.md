@@ -43,6 +43,7 @@
 - 🛠 One-click remove picture background Remove picture background with one click
 - 🛠 One-click bitmap to vector
 - 🛠 Permission management Interface permission management
+- 🛠 Limit user availability Limit the number of times a user is available
 
 ## Quick Start
 
